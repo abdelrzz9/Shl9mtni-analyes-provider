@@ -7,23 +7,41 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  build-api:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Build backend
+      - name: Build Go API
         uses: docker/build-push-action@v6
         with:
-          context: .
-          target: backend
+          context: ./mathverse-api
           load: true
-          tags: math-app-backend:latest
-      - name: Build math engine
+          tags: mathverse-api:latest
+
+  build-engine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build Python engine
         uses: docker/build-push-action@v6
         with:
-          context: .
-          target: math-engine
+          context: ./mathverse-engine
           load: true
-          tags: math-app-engine:latest
+          tags: mathverse-engine:latest
+
+  build-flutter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build Flutter web
+        uses: docker/build-push-action@v6
+        with:
+          context: ./mathverse-flutter
+          load: true
+          tags: mathverse-flutter:latest
