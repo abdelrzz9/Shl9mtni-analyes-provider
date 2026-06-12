@@ -1,6 +1,0 @@
-fastapi
-uvicorn
-sympy
-numpy
-scipy
-pydantic
