@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/network/api_client.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/repositories/auth_repository.dart';
-import '../../domain/repositories/auth_repository.dart' show AuthException;
 
 class AuthRepositoryImpl implements AuthRepository {
   final ApiClient _apiClient;

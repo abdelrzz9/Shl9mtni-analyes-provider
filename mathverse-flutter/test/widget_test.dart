@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:mathverse_flutter/main.dart';
 import 'package:mathverse_flutter/di/injection_container.dart' as di;
+import 'package:mathverse_flutter/main.dart';
 
 void main() {
   setUpAll(() async {

@@ -40,6 +40,7 @@ class HistoryRepositoryImpl implements HistoryRepository {
         'result': entry.result,
       });
     } on DioException {
+      // Silently ignore errors on add
     }
   }
 
@@ -48,6 +49,7 @@ class HistoryRepositoryImpl implements HistoryRepository {
     try {
       await _apiClient.delete('/api/v1/history/$id');
     } on DioException {
+      // Silently ignore errors on delete
     }
   }
 
@@ -56,6 +58,7 @@ class HistoryRepositoryImpl implements HistoryRepository {
     try {
       await _apiClient.delete('/api/v1/history/clear');
     } on DioException {
+      // Silently ignore errors on clear
     }
   }
 
@@ -64,6 +67,7 @@ class HistoryRepositoryImpl implements HistoryRepository {
     try {
       await _apiClient.post('/api/v1/history/$id/favorite');
     } on DioException {
+      // Silently ignore errors on toggle
     }
   }
 }

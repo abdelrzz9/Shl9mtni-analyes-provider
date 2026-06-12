@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/assistant/presentation/pages/assistant_page.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/register_page.dart';
-import '../../features/assistant/presentation/pages/assistant_page.dart';
 import '../../features/calculator/presentation/pages/calculator_page.dart';
 import '../../features/derivatives/presentation/pages/derivative_page.dart';
 import '../../features/dl/presentation/pages/dl_page.dart';

@@ -1,5 +1,5 @@
-import 'package:mathverse_flutter/di/injection_container.dart';
 import 'package:mathverse_flutter/core/network/api_client.dart';
+import 'package:mathverse_flutter/di/injection_container.dart';
 
 import '../../domain/entities/graph_data.dart';
 import '../../domain/repositories/graph_repository.dart';

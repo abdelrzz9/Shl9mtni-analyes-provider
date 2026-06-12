@@ -87,7 +87,7 @@ class _LimitBodyState extends State<_LimitBody> {
             value: _direction,
             decoration: const InputDecoration(labelText: 'Direction (optional)'),
             items: const [
-              DropdownMenuItem(value: null, child: Text('Both sides')),
+              DropdownMenuItem(child: Text('Both sides')),
               DropdownMenuItem(value: 'right', child: Text('Right (+)')),
               DropdownMenuItem(value: 'left', child: Text('Left (-)')),
             ],
