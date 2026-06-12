@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_dimensions.dart';
@@ -87,7 +88,7 @@ class _FeatureCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: InkWell(
-        onTap: () => Navigator.of(context).pushNamed(feature.route),
+        onTap: () => context.go(feature.route),
         borderRadius: BorderRadius.circular(AppDimensions.cardRadius),
         child: Padding(
           padding: const EdgeInsets.all(AppDimensions.md),

@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 import '../../features/calculator/presentation/pages/calculator_page.dart';
 import '../../features/derivatives/presentation/pages/derivative_page.dart';
 import '../../features/dl/presentation/pages/dl_page.dart';
+import '../../features/favorites/presentation/pages/favorites_page.dart';
 import '../../features/graph/presentation/pages/graph_page.dart';
+import '../../features/history/presentation/pages/history_page.dart';
 import '../../features/homepage/presentation/pages/home_page.dart';
 import '../../features/integrals/presentation/pages/integral_page.dart';
 import '../../features/limits/presentation/pages/limit_page.dart';
@@ -54,6 +56,14 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppRoutes.graph,
       builder: (context, state) => const GraphPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.history,
+      builder: (context, state) => const HistoryPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.favorites,
+      builder: (context, state) => const FavoritesPage(),
     ),
   ],
 );
