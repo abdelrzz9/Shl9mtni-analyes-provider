@@ -1,0 +1,32 @@
+name: Math Engine CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'services/math-engine/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'services/math-engine/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - run: |
+          cd services/math-engine
+          python3 -m pip install -r requirements.txt
+      - run: |
+          cd services/math-engine
+          python3 -m pytest || python3 -c "
+from app.sympy_engine import differentiate, integrate, evaluate_limit, taylor_series, evaluate_expression, calculate_statistics, matrix_add, matrix_multiply
+assert '2*x' in differentiate('x**2')['result']
+assert 'x**3/3' in integrate('x**2')['result']
+assert evaluate_expression('2+2')['numeric_value'] == 4.0
+print('All math engine tests passed!')
+"

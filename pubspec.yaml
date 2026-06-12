@@ -22,6 +22,7 @@ dependencies:
   math_expressions: ^2.6.0
   flutter_math_fork: ^0.7.2
   intl: ^0.20.2
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:
