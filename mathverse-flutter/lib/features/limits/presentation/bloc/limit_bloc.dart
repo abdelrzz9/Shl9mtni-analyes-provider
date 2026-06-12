@@ -68,9 +68,8 @@ final class LimitError extends LimitState {
 class LimitBloc extends Bloc<LimitEvent, LimitState> {
   final EvaluateLimit _evaluateLimit;
 
-  LimitBloc({required EvaluateLimit evaluateLimit})
-      : _evaluateLimit = evaluateLimit,
-        super(const LimitInitial()) {
+  LimitBloc({required this._evaluateLimit})
+      : super(const LimitInitial()) {
     on<Evaluate>(_onEvaluate);
     on<ClearLimit>(_onClear);
   }

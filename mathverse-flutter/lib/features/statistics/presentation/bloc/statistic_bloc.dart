@@ -66,9 +66,8 @@ final class StatisticError extends StatisticState {
 class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
   final CalculateStatistic _calculateStatistic;
 
-  StatisticBloc({required CalculateStatistic calculateStatistic})
-      : _calculateStatistic = calculateStatistic,
-        super(const StatisticInitial()) {
+  StatisticBloc({required this._calculateStatistic})
+      : super(const StatisticInitial()) {
     on<Calculate>(_onCalculate);
     on<ClearStatistic>(_onClear);
   }

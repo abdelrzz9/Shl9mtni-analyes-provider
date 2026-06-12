@@ -68,9 +68,8 @@ final class GraphError extends GraphState {
 class GraphBloc extends Bloc<GraphEvent, GraphState> {
   final PlotGraph _plotGraph;
 
-  GraphBloc({required PlotGraph plotGraph})
-      : _plotGraph = plotGraph,
-        super(const GraphInitial()) {
+  GraphBloc({required this._plotGraph})
+      : super(const GraphInitial()) {
     on<Plot>(_onPlot);
     on<ClearGraph>(_onClear);
   }

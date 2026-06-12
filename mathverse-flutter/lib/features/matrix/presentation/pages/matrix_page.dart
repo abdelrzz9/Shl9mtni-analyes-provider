@@ -70,7 +70,7 @@ class _MatrixBodyState extends State<_MatrixBody> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           DropdownButtonFormField<String>(
-            value: _selectedOperation,
+            initialValue: _selectedOperation,
             decoration: const InputDecoration(labelText: 'Operation'),
             items: _operations.map((op) {
               return DropdownMenuItem(

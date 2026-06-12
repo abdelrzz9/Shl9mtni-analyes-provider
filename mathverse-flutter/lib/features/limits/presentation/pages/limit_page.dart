@@ -84,7 +84,7 @@ class _LimitBodyState extends State<_LimitBody> {
           ),
           const SizedBox(height: AppDimensions.md),
           DropdownButtonFormField<String>(
-            value: _direction,
+            initialValue: _direction,
             decoration: const InputDecoration(labelText: 'Direction (optional)'),
             items: const [
               DropdownMenuItem(child: Text('Both sides')),

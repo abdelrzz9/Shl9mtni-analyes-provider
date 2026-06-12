@@ -66,9 +66,8 @@ final class MatrixError extends MatrixState {
 class MatrixBloc extends Bloc<MatrixEvent, MatrixState> {
   final MatrixOperation _matrixOperation;
 
-  MatrixBloc({required MatrixOperation matrixOperation})
-      : _matrixOperation = matrixOperation,
-        super(const MatrixInitial()) {
+  MatrixBloc({required this._matrixOperation})
+      : super(const MatrixInitial()) {
     on<PerformMatrixOperation>(_onPerformOperation);
     on<ClearMatrix>(_onClear);
   }

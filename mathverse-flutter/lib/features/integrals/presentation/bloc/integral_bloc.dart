@@ -68,9 +68,8 @@ final class IntegralError extends IntegralState {
 class IntegralBloc extends Bloc<IntegralEvent, IntegralState> {
   final IntegrateFunction _integrateFunction;
 
-  IntegralBloc({required IntegrateFunction integrateFunction})
-      : _integrateFunction = integrateFunction,
-        super(const IntegralInitial()) {
+  IntegralBloc({required this._integrateFunction})
+      : super(const IntegralInitial()) {
     on<Integrate>(_onIntegrate);
     on<ClearIntegral>(_onClear);
   }

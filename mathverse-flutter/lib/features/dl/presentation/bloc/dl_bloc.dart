@@ -68,9 +68,8 @@ final class DLError extends DLState {
 class DLBloc extends Bloc<DLEvent, DLState> {
   final ExpandDL _expandDL;
 
-  DLBloc({required ExpandDL expandDL})
-      : _expandDL = expandDL,
-        super(const DLInitial()) {
+  DLBloc({required this._expandDL})
+      : super(const DLInitial()) {
     on<ExpandDLSeries>(_onExpandDL);
     on<ClearDL>(_onClear);
   }

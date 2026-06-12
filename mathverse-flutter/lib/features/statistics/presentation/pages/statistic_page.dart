@@ -80,7 +80,7 @@ class _StatisticBodyState extends State<_StatisticBody> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           DropdownButtonFormField<String>(
-            value: _selectedOperation,
+            initialValue: _selectedOperation,
             decoration: const InputDecoration(labelText: 'Operation'),
             items: _operations.map((op) {
               return DropdownMenuItem(

@@ -71,9 +71,8 @@ final class CalculatorError extends CalculatorState {
 class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
   final EvaluateExpression _evaluateExpression;
 
-  CalculatorBloc({required EvaluateExpression evaluateExpression})
-      : _evaluateExpression = evaluateExpression,
-        super(const CalculatorInitial()) {
+  CalculatorBloc({required this._evaluateExpression})
+      : super(const CalculatorInitial()) {
     on<ExpressionChanged>(_onExpressionChanged);
     on<Calculate>(_onCalculate);
     on<ClearExpression>(_onClear);

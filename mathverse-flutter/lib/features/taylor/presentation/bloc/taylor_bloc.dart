@@ -68,9 +68,8 @@ final class TaylorError extends TaylorState {
 class TaylorBloc extends Bloc<TaylorEvent, TaylorState> {
   final ExpandTaylorSeries _expandTaylorSeries;
 
-  TaylorBloc({required ExpandTaylorSeries expandTaylorSeries})
-      : _expandTaylorSeries = expandTaylorSeries,
-        super(const TaylorInitial()) {
+  TaylorBloc({required this._expandTaylorSeries})
+      : super(const TaylorInitial()) {
     on<ExpandTaylor>(_onExpandTaylor);
     on<ClearTaylor>(_onClear);
   }

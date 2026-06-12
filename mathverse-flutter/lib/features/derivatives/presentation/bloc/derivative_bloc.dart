@@ -66,9 +66,8 @@ final class DerivativeError extends DerivativeState {
 class DerivativeBloc extends Bloc<DerivativeEvent, DerivativeState> {
   final DifferentiateFunction _differentiateFunction;
 
-  DerivativeBloc({required DifferentiateFunction differentiateFunction})
-      : _differentiateFunction = differentiateFunction,
-        super(const DerivativeInitial()) {
+  DerivativeBloc({required this._differentiateFunction})
+      : super(const DerivativeInitial()) {
     on<Differentiate>(_onDifferentiate);
     on<ClearDerivative>(_onClear);
   }

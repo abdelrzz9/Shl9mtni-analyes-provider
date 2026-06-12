@@ -83,17 +83,12 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   final ToggleFavorite _toggleFavorite;
 
   HistoryBloc({
-    required GetHistory getHistory,
-    required AddHistoryEntry addHistoryEntry,
-    required DeleteHistoryEntry deleteHistoryEntry,
-    required ClearHistory clearHistory,
-    required ToggleFavorite toggleFavorite,
-  }) : _getHistory = getHistory,
-       _addHistoryEntry = addHistoryEntry,
-       _deleteHistoryEntry = deleteHistoryEntry,
-       _clearHistory = clearHistory,
-       _toggleFavorite = toggleFavorite,
-       super(const HistoryLoading()) {
+    required this._getHistory,
+    required this._addHistoryEntry,
+    required this._deleteHistoryEntry,
+    required this._clearHistory,
+    required this._toggleFavorite,
+  }) : super(const HistoryLoading()) {
     on<LoadHistory>(_onLoad);
     on<AddHistory>(_onAdd);
     on<DeleteHistory>(_onDelete);
