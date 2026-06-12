@@ -19,9 +19,7 @@ class MathApp extends StatelessWidget {
       title: 'MathApp',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system,
       routerConfig: appRouter,
-
     );
   }
 }
