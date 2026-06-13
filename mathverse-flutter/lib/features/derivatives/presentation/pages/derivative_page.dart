@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/extensions/responsive.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
+import '../../../../core/theme/app_radius.dart';
+import '../../../../core/theme/app_sizes.dart';
+import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/widgets/loading_widgets.dart';
+import '../../../../core/widgets/math_result_display.dart';
+import '../../../../core/widgets/mathverse_card.dart';
+import '../../../../core/widgets/mathverse_input.dart';
+import '../../../../core/widgets/state_widgets.dart';
 import '../../data/repositories/derivative_repository_impl.dart';
 import '../../domain/usecases/differentiate_function.dart';
 import '../bloc/derivative_bloc.dart';
@@ -52,104 +61,224 @@ class _DerivativeBodyState extends State<_DerivativeBody> {
     ));
   }
 
+  void _incrementOrder() {
+    setState(() => _order++);
+  }
+
+  void _decrementOrder() {
+    if (_order > 1) {
+      setState(() => _order--);
+    }
+  }
+
+  void _onExampleTap(String example) {
+    _functionController.text = example;
+    _functionController.selection = TextSelection.fromPosition(
+      TextPosition(offset: example.length),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(AppDimensions.md),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextField(
-            controller: _functionController,
-            decoration: const InputDecoration(
-              labelText: 'Function f(x)',
-              hintText: 'e.g., x^2, sin(x), exp(x)',
+    return BlocBuilder<DerivativeBloc, DerivativeState>(
+      builder: (context, state) {
+        return SingleChildScrollView(
+          padding: context.screenPadding,
+          child: Center(
+            child: SizedBox(
+              width: context.maxContentWidth,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _buildInputCard(),
+                  const SizedBox(height: AppSpacing.md),
+                  _buildVariableOrderRow(),
+                  const SizedBox(height: AppSpacing.lg),
+                  _buildExamples(),
+                  const SizedBox(height: AppSpacing.xxl),
+                  _buildSolveButton(),
+                  if (state is DerivativeLoading)
+                    _buildLoading(),
+                  if (state is DerivativeResultState)
+                    _buildResult(state),
+                  if (state is DerivativeError)
+                    _buildError(state),
+                ],
+              ),
             ),
           ),
-          const SizedBox(height: AppDimensions.md),
+        );
+      },
+    );
+  }
+
+  Widget _buildInputCard() {
+    return MathVerseCard(
+      child: MathVerseInput(
+        controller: _functionController,
+        labelText: 'f(x)',
+        hintText: 'x^2, sin(x), exp(x)',
+        prefixIcon: const Icon(Icons.functions_rounded),
+        textInputAction: TextInputAction.next,
+        onSubmitted: (_) => _calculate(),
+      ),
+    );
+  }
+
+  Widget _buildVariableOrderRow() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 2,
+          child: MathVerseInput(
+            controller: _variableController,
+            labelText: 'Variable',
+            hintText: 'x',
+            prefixIcon: const Icon(Icons.abc_rounded),
+            textInputAction: TextInputAction.done,
+            onSubmitted: (_) => _calculate(),
+          ),
+        ),
+        const SizedBox(width: AppSpacing.lg),
+        Expanded(
+          flex: 3,
+          child: _buildOrderStepper(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildOrderStepper() {
+    final theme = Theme.of(context);
+    return MathVerseCard(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Order',
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
           Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: TextField(
-                  controller: _variableController,
-                  decoration: const InputDecoration(labelText: 'Variable'),
+              IconButton(
+                onPressed: _decrementOrder,
+                icon: const Icon(Icons.remove_rounded),
+                iconSize: AppSizes.iconMedium,
+                splashRadius: 20,
+                visualDensity: VisualDensity.compact,
+                tooltip: 'Decrease order',
+              ),
+              Container(
+                width: 32,
+                alignment: Alignment.center,
+                child: Text(
+                  '$_order',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
-              const SizedBox(width: AppDimensions.md),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('Order'),
-                    const SizedBox(height: AppDimensions.xs),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.remove),
-                          onPressed: () => setState(() => _order = (_order > 1) ? _order - 1 : 1),
-                        ),
-                        Text('$_order', style: const TextStyle(fontSize: AppDimensions.fontSizeLg)),
-                        IconButton(
-                          icon: const Icon(Icons.add),
-                          onPressed: () => setState(() => _order = _order + 1),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              IconButton(
+                onPressed: _incrementOrder,
+                icon: const Icon(Icons.add_rounded),
+                iconSize: AppSizes.iconMedium,
+                splashRadius: 20,
+                visualDensity: VisualDensity.compact,
+                tooltip: 'Increase order',
               ),
             ],
           ),
-          const SizedBox(height: AppDimensions.lg),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: _calculate,
-              child: const Text('Differentiate'),
-            ),
-          ),
-          const SizedBox(height: AppDimensions.lg),
-          BlocBuilder<DerivativeBloc, DerivativeState>(
-            builder: (context, state) {
-              if (state is DerivativeLoading) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              if (state is DerivativeResultState) {
-                return Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppDimensions.md),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('Result', style: TextStyle(fontWeight: FontWeight.bold, fontSize: AppDimensions.fontSizeLg)),
-                        const SizedBox(height: AppDimensions.sm),
-                        Text(
-                          "f'(${state.result.variable}) = ${state.result.result}",
-                          style: const TextStyle(fontSize: AppDimensions.fontSizeXl, color: AppColors.primary),
-                        ),
-                        if (state.result.steps != null) ...[
-                          const SizedBox(height: AppDimensions.md),
-                          const Text('Steps', style: TextStyle(fontWeight: FontWeight.bold)),
-                          const SizedBox(height: AppDimensions.xs),
-                          Text(state.result.steps!),
-                        ],
-                      ],
-                    ),
-                  ),
-                );
-              }
-              if (state is DerivativeError) {
-                return Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppDimensions.md),
-                    child: Text(state.message, style: const TextStyle(color: AppColors.error)),
-                  ),
-                );
-              }
-              return const SizedBox.shrink();
-            },
+        ],
+      ),
+    );
+  }
+
+  Widget _buildExamples() {
+    return ExamplesSection(
+      examples: const ['x^2', 'sin(x)', 'cos(x)', 'exp(x)', 'ln(x)'],
+      onTap: _onExampleTap,
+    );
+  }
+
+  Widget _buildSolveButton() {
+    final theme = Theme.of(context);
+    return Container(
+      height: AppSizes.buttonHeight,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [AppColors.gradientStart, AppColors.gradientEnd],
+        ),
+        borderRadius: BorderRadius.circular(AppRadius.button),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.gradientStart.withValues(alpha: 0.4),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
           ),
         ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: _calculate,
+          borderRadius: BorderRadius.circular(AppRadius.button),
+          child: Center(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.calculate_rounded, color: Colors.white, size: AppSizes.iconMedium),
+                const SizedBox(width: AppSpacing.sm),
+                Text(
+                  'Solve',
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLoading() {
+    return const Padding(
+      padding: EdgeInsets.only(top: AppSpacing.xxl),
+      child: PageSkeleton(itemCount: 3),
+    );
+  }
+
+  Widget _buildResult(DerivativeResultState state) {
+    final result = state.result;
+    final steps = result.steps?.split('\n').where((s) => s.trim().isNotEmpty).toList();
+
+    return Padding(
+      padding: const EdgeInsets.only(top: AppSpacing.xxl),
+      child: MathResultDisplay(
+        expression: 'f(${result.variable}) = ${result.function}',
+        result: "f'(${result.variable}) = ${result.result}",
+        steps: steps,
+        onCopy: () => Clipboard.setData(ClipboardData(text: result.result)),
+        onShare: () {},
+        onSave: () {},
+        onFavorite: () {},
+      ),
+    );
+  }
+
+  Widget _buildError(DerivativeError state) {
+    return Padding(
+      padding: const EdgeInsets.only(top: AppSpacing.xxl),
+      child: ErrorState(
+        message: state.message,
+        onRetry: _calculate,
       ),
     );
   }

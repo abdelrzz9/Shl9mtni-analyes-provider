@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
-import '../../data/repositories/history_repository_impl.dart';
+import '../../../../core/theme/app_radius.dart';
+import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/theme/app_sizes.dart';
+import '../../../../core/widgets/loading_widgets.dart';
+import '../../../../core/widgets/mathverse_card.dart';
+import '../../../../core/widgets/mathverse_input.dart';
+import '../../../../core/widgets/state_widgets.dart';
 import '../../domain/entities/history_entry.dart';
-import '../../domain/usecases/get_history.dart';
 import '../bloc/history_bloc.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,13 +21,14 @@ class HistoryPage extends StatelessWidget {
         title: const Text('History'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.delete_sweep),
+            icon: const Icon(Icons.delete_sweep_rounded),
+            tooltip: 'Clear all history',
             onPressed: () {
               showDialog(
                 context: context,
                 builder: (ctx) => AlertDialog(
                   title: const Text('Clear History'),
-                  content: const Text('Clear all history entries?'),
+                  content: const Text('Clear all history entries? This cannot be undone.'),
                   actions: [
                     TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
                     TextButton(
@@ -41,108 +45,338 @@ class HistoryPage extends StatelessWidget {
           ),
         ],
       ),
-      body: BlocProvider(
-        create: (_) {
-          final repo = HistoryRepositoryImpl();
-          return HistoryBloc(
-            getHistory: GetHistory(repo),
-            addHistoryEntry: AddHistoryEntry(repo),
-            deleteHistoryEntry: DeleteHistoryEntry(repo),
-            clearHistory: ClearHistory(repo),
-            toggleFavorite: ToggleFavorite(repo),
-          )..add(const LoadHistory());
-        },
-        child: const _HistoryBody(),
-      ),
+      body: const _HistoryBody(),
     );
   }
 }
 
-class _HistoryBody extends StatelessWidget {
+class _HistoryBody extends StatefulWidget {
   const _HistoryBody();
-
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<HistoryBloc, HistoryState>(
-      builder: (context, state) {
-        if (state is HistoryLoading) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (state is HistoryLoaded) {
-          if (state.entries.isEmpty) {
-            return const Center(child: Text('No history yet'));
-          }
-          return ListView.builder(
-            padding: const EdgeInsets.all(AppDimensions.sm),
-            itemCount: state.entries.length,
-            itemBuilder: (context, index) {
-              final entry = state.entries[index];
-              return _HistoryCard(entry: entry);
-            },
-          );
-        }
-        if (state is HistoryError) {
-          return Center(child: Text(state.message, style: const TextStyle(color: AppColors.error)));
-        }
-        return const SizedBox.shrink();
-      },
-    );
-  }
+  State<_HistoryBody> createState() => _HistoryBodyState();
 }
 
-class _HistoryCard extends StatelessWidget {
-  final HistoryEntry entry;
-
-  const _HistoryCard({required this.entry});
+class _HistoryBodyState extends State<_HistoryBody> {
+  final _searchController = TextEditingController();
+  String _searchQuery = '';
+  String? _selectedFeature;
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: AppDimensions.xs),
-      child: ListTile(
-        leading: Icon(
-          _getIcon(entry.feature),
-          color: AppColors.primary,
-        ),
-        title: Text(entry.input, style: const TextStyle(fontWeight: FontWeight.w600)),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('= ${entry.result}'),
-            Text(
-              '${entry.feature} • ${_formatDate(entry.timestamp)}',
-              style: const TextStyle(fontSize: AppDimensions.fontSizeXs, color: Colors.grey),
-            ),
-          ],
-        ),
-        trailing: IconButton(
-          icon: Icon(
-            entry.isFavorite ? Icons.star : Icons.star_border,
-            color: entry.isFavorite ? AppColors.warning : null,
-          ),
-          onPressed: () => context.read<HistoryBloc>().add(ToggleHistoryFavorite(entry.id)),
-        ),
-        onLongPress: () {
-          context.read<HistoryBloc>().add(DeleteHistory(entry.id));
-        },
-      ),
-    );
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
+
+  static const _features = [
+    null,
+    'calculator',
+    'derivatives',
+    'integrals',
+    'limits',
+    'taylor',
+    'matrix',
+    'statistics',
+  ];
 
   IconData _getIcon(String feature) {
     switch (feature.toLowerCase()) {
-      case 'calculator': return Icons.calculate;
-      case 'derivatives': return Icons.functions;
-      case 'integrals': return Icons.integration_instructions;
-      case 'limits': return Icons.trending_up;
-      case 'taylor': return Icons.linear_scale;
-      case 'matrix': return Icons.grid_on;
-      case 'statistics': return Icons.bar_chart;
-      default: return Icons.calculate;
+      case 'calculator': return Icons.calculate_rounded;
+      case 'derivatives': return Icons.functions_rounded;
+      case 'integrals': return Icons.integration_instructions_rounded;
+      case 'limits': return Icons.trending_up_rounded;
+      case 'taylor': return Icons.linear_scale_rounded;
+      case 'matrix': return Icons.grid_on_rounded;
+      case 'statistics': return Icons.bar_chart_rounded;
+      default: return Icons.calculate_rounded;
     }
   }
 
   String _formatDate(DateTime dt) {
-    return '${dt.day}/${dt.month}/${dt.year} ${dt.hour}:${dt.minute.toString().padLeft(2, '0')}';
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final yesterday = today.subtract(const Duration(days: 1));
+    final entryDate = DateTime(dt.year, dt.month, dt.day);
+
+    if (entryDate == today) return 'Today';
+    if (entryDate == yesterday) return 'Yesterday';
+    if (entryDate.isAfter(today.subtract(Duration(days: today.weekday - 1)))) {
+      return 'This Week';
+    }
+    return 'Earlier';
+  }
+
+  String _formatTime(DateTime dt) {
+    return '${dt.hour}:${dt.minute.toString().padLeft(2, '0')}';
+  }
+
+  Map<String, List<HistoryEntry>> _groupEntries(List<HistoryEntry> entries) {
+    final groups = <String, List<HistoryEntry>>{};
+    final order = ['Today', 'Yesterday', 'This Week', 'Earlier'];
+    for (final entry in entries) {
+      final key = _formatDate(entry.timestamp);
+      groups.putIfAbsent(key, () => []);
+      groups[key]!.add(entry);
+    }
+    final sorted = <String, List<HistoryEntry>>{};
+    for (final key in order) {
+      if (groups.containsKey(key)) {
+        sorted[key] = groups[key]!;
+      }
+    }
+    for (final key in groups.keys) {
+      if (!order.contains(key)) {
+        sorted.putIfAbsent(key, () => groups[key]!);
+      }
+    }
+    return sorted;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return BlocBuilder<HistoryBloc, HistoryState>(
+      builder: (context, state) {
+        if (state is HistoryLoading) {
+          return const Padding(
+            padding: EdgeInsets.all(AppSpacing.md),
+            child: SkeletonList(itemCount: 5),
+          );
+        }
+        if (state is HistoryError) {
+          return ErrorState(
+            message: state.message,
+            title: 'Failed to load history',
+            icon: Icons.history_rounded,
+            onRetry: () => context.read<HistoryBloc>().add(const LoadHistory()),
+          );
+        }
+        if (state is! HistoryLoaded) {
+          return const SizedBox.shrink();
+        }
+        var entries = state.entries;
+        if (_searchQuery.isNotEmpty) {
+          entries = entries.where((e) =>
+            e.input.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+            e.result.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+            e.feature.toLowerCase().contains(_searchQuery.toLowerCase())
+          ).toList();
+        }
+        if (_selectedFeature != null) {
+          entries = entries.where((e) =>
+            e.feature.toLowerCase() == _selectedFeature!.toLowerCase()
+          ).toList();
+        }
+        if (entries.isEmpty) {
+          return EmptyState(
+            icon: Icons.history_rounded,
+            title: 'No history yet',
+            subtitle: 'Your calculations and results will appear here',
+            actionLabel: _searchQuery.isEmpty && _selectedFeature == null ? null : 'Clear filters',
+            onAction: () {
+              setState(() {
+                _searchController.clear();
+                _searchQuery = '';
+                _selectedFeature = null;
+              });
+            },
+          );
+        }
+        final grouped = _groupEntries(entries);
+        return Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.lg, AppSpacing.lg, AppSpacing.sm),
+              child: Column(
+                children: [
+                  MathVerseSearchBar(
+                    controller: _searchController,
+                    hintText: 'Search history...',
+                    onChanged: (value) => setState(() => _searchQuery = value),
+                    onClear: () {
+                      _searchController.clear();
+                      setState(() => _searchQuery = '');
+                    },
+                  ),
+                  SizedBox(height: AppSpacing.sm),
+                  SizedBox(
+                    height: 36,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _features.length,
+                      separatorBuilder: (context, index) => SizedBox(width: AppSpacing.sm),
+                      itemBuilder: (context, index) {
+                        final feature = _features[index];
+                        final isSelected = _selectedFeature == feature;
+                        return FilterChip(
+                          label: Text(
+                            feature == null ? 'All' : feature[0].toUpperCase() + feature.substring(1),
+                            style: theme.textTheme.labelMedium?.copyWith(
+                              fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                            ),
+                          ),
+                          selected: isSelected,
+                          onSelected: (_) => setState(() => _selectedFeature = isSelected ? null : feature),
+                          visualDensity: VisualDensity.compact,
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.fromLTRB(AppSpacing.lg, 0, AppSpacing.lg, AppSpacing.xxl),
+                children: grouped.entries.map((group) {
+                  return _buildGroup(context, theme, group.key, group.value);
+                }).toList(),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildGroup(BuildContext context, ThemeData theme, String label, List<HistoryEntry> entries) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: AppSpacing.md),
+          child: Row(
+            children: [
+              Text(
+                label,
+                style: theme.textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+              SizedBox(width: AppSpacing.sm),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xxs),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(AppRadius.full),
+                ),
+                child: Text(
+                  '${entries.length}',
+                  style: theme.textTheme.labelSmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        ...entries.map((entry) => _buildEntry(context, theme, entry)),
+      ],
+    );
+  }
+
+  Widget _buildEntry(BuildContext context, ThemeData theme, HistoryEntry entry) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: AppSpacing.sm),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: AppSpacing.md),
+            width: 2,
+            height: 40,
+            decoration: BoxDecoration(
+              color: entry.isFavorite
+                  ? AppColors.warning
+                  : theme.colorScheme.primary.withValues(alpha: 0.3),
+              borderRadius: BorderRadius.circular(AppRadius.full),
+            ),
+          ),
+          SizedBox(width: AppSpacing.md),
+          Expanded(
+            child: MathVerseCard(
+              onTap: () {},
+              onLongPress: () => context.read<HistoryBloc>().add(DeleteHistory(entry.id)),
+              child: Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(AppSpacing.sm),
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
+                      borderRadius: BorderRadius.circular(AppRadius.md),
+                    ),
+                    child: Icon(
+                      _getIcon(entry.feature),
+                      size: AppSizes.iconMedium,
+                      color: theme.colorScheme.primary,
+                    ),
+                  ),
+                  SizedBox(width: AppSpacing.md),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          entry.input,
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'monospace',
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: AppSpacing.xxs),
+                        Text(
+                          '= ${entry.result}',
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.colorScheme.primary,
+                            fontFamily: 'monospace',
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: AppSpacing.xxs),
+                        Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 1),
+                              decoration: BoxDecoration(
+                                color: theme.colorScheme.surfaceContainerHighest,
+                                borderRadius: BorderRadius.circular(AppRadius.full),
+                              ),
+                              child: Text(
+                                entry.feature,
+                                style: theme.textTheme.labelSmall?.copyWith(
+                                  color: theme.colorScheme.onSurfaceVariant,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: AppSpacing.sm),
+                            Text(
+                              _formatTime(entry.timestamp),
+                              style: theme.textTheme.labelSmall?.copyWith(
+                                color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      entry.isFavorite ? Icons.star_rounded : Icons.star_border_rounded,
+                      color: entry.isFavorite ? AppColors.warning : null,
+                    ),
+                    onPressed: () => context.read<HistoryBloc>().add(ToggleHistoryFavorite(entry.id)),
+                    tooltip: entry.isFavorite ? 'Remove from favorites' : 'Add to favorites',
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

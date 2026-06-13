@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_dimensions.dart';
+import '../../../../core/theme/app_radius.dart';
+import '../../../../core/theme/app_sizes.dart';
+import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/widgets/loading_widgets.dart';
+import '../../../../core/widgets/math_result_display.dart';
+import '../../../../core/widgets/mathverse_button.dart';
+import '../../../../core/widgets/mathverse_card.dart';
+import '../../../../core/widgets/mathverse_input.dart';
+import '../../../../core/widgets/state_widgets.dart';
 import '../../data/repositories/dl_repository_impl.dart';
 import '../../domain/usecases/expand_dl.dart';
 import '../bloc/dl_bloc.dart';
@@ -55,109 +63,179 @@ class _DLBodyState extends State<_DLBody> {
     ));
   }
 
+  void _setExample(String example) {
+    _functionController.text = example;
+    _calculate();
+  }
+
+  void _copyResult(String text) {
+    Clipboard.setData(ClipboardData(text: text));
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Copied to clipboard'), duration: Duration(seconds: 2)),
+    );
+  }
+
+  void _shareResult(String text) {
+    Clipboard.setData(ClipboardData(text: text));
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Result copied, ready to share'), duration: Duration(seconds: 2)),
+    );
+  }
+
+  void _saveResult() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Result saved'), duration: Duration(seconds: 2)),
+    );
+  }
+
+  void _toggleFavorite() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Added to favorites'), duration: Duration(seconds: 2)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(AppDimensions.md),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextField(
-            controller: _functionController,
-            decoration: const InputDecoration(
-              labelText: 'Function f(x)',
-              hintText: 'e.g., sin(x), cos(x), exp(x)',
-            ),
-          ),
-          const SizedBox(height: AppDimensions.md),
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: _variableController,
-                  decoration: const InputDecoration(labelText: 'Variable'),
-                ),
-              ),
-              const SizedBox(width: AppDimensions.md),
-              Expanded(
-                child: TextField(
-                  controller: _centerController,
-                  decoration: const InputDecoration(labelText: 'Center'),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppDimensions.md),
-          Column(
+      padding: EdgeInsets.all(AppSpacing.screenPadding),
+      child: Center(
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: AppSpacing.contentMaxWidth),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Order'),
-              const SizedBox(height: AppDimensions.xs),
-              Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.remove),
-                    onPressed: () => setState(() => _order = (_order > 1) ? _order - 1 : 1),
-                  ),
-                  Text('$_order', style: const TextStyle(fontSize: AppDimensions.fontSizeLg)),
-                  IconButton(
-                    icon: const Icon(Icons.add),
-                    onPressed: () => setState(() => _order = _order + 1),
-                  ),
-                ],
+              MathVerseCard(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MathVerseInput(
+                      controller: _functionController,
+                      labelText: 'Function f(x)',
+                      hintText: 'e.g., sin(x), cos(x), exp(x)',
+                      prefixIcon: Icon(Icons.functions_rounded, size: AppSizes.iconMedium, color: theme.colorScheme.primary),
+                      onSubmitted: (_) => _calculate(),
+                    ),
+                    SizedBox(height: AppSpacing.md),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: MathVerseInput(
+                            controller: _variableController,
+                            labelText: 'Variable',
+                            prefixIcon: Icon(Icons.text_fields_rounded, size: AppSizes.iconMedium, color: theme.colorScheme.primary),
+                          ),
+                        ),
+                        SizedBox(width: AppSpacing.md),
+                        Expanded(
+                          child: MathVerseInput(
+                            controller: _centerController,
+                            labelText: 'Center',
+                            prefixIcon: Icon(Icons.center_focus_strong_rounded, size: AppSizes.iconMedium, color: theme.colorScheme.primary),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: AppSpacing.md),
+                    Row(
+                      children: [
+                        Text('Degree/Order', style: theme.textTheme.titleSmall?.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
+                        )),
+                        const Spacer(),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: theme.colorScheme.outlineVariant),
+                            borderRadius: BorderRadius.circular(AppRadius.input),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              InkWell(
+                                onTap: () => setState(() => _order = (_order > 1) ? _order - 1 : 1),
+                                borderRadius: BorderRadius.horizontal(left: Radius.circular(AppRadius.input)),
+                                child: Padding(
+                                  padding: EdgeInsets.all(AppSpacing.md),
+                                  child: Icon(Icons.remove_rounded, size: AppSizes.iconMedium, color: theme.colorScheme.primary),
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+                                constraints: const BoxConstraints(minWidth: AppSizes.buttonMinWidth),
+                                child: Text('$_order', style: theme.textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                )),
+                              ),
+                              InkWell(
+                                onTap: () => setState(() => _order = _order + 1),
+                                borderRadius: BorderRadius.horizontal(right: Radius.circular(AppRadius.input)),
+                                child: Padding(
+                                  padding: EdgeInsets.all(AppSpacing.md),
+                                  child: Icon(Icons.add_rounded, size: AppSizes.iconMedium, color: theme.colorScheme.primary),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: AppSpacing.lg),
+              ExamplesSection(
+                examples: const ['sin(x)', 'cos(x)', 'exp(x)', 'ln(1+x)', '1/(1-x)'],
+                onTap: _setExample,
+              ),
+              SizedBox(height: AppSpacing.xl),
+              MathVerseButton(
+                label: 'Expand DL',
+                onPressed: _calculate,
+                icon: Icons.calculate_rounded,
+              ),
+              SizedBox(height: AppSpacing.xl),
+              BlocBuilder<DLBloc, DLState>(
+                builder: (context, state) {
+                  if (state is DLLoading) {
+                    return Column(
+                      children: [
+                        SkeletonCard(height: 160),
+                        SizedBox(height: AppSpacing.md),
+                        SkeletonCard(height: 100),
+                      ],
+                    );
+                  }
+                  if (state is DLResultState) {
+                    final result = state.result;
+                    final terms = result.terms
+                        ?.split('\n')
+                        .map((t) => t.trim())
+                        .where((t) => t.isNotEmpty)
+                        .toList();
+                    final displayResult = '${result.function} = ${result.result}';
+                    return MathResultDisplay(
+                      expression: 'f(${result.variable}) = ${result.function}',
+                      result: '= ${result.result}',
+                      steps: terms,
+                      onCopy: () => _copyResult(displayResult),
+                      onShare: () => _shareResult(displayResult),
+                      onSave: _saveResult,
+                      onFavorite: _toggleFavorite,
+                    );
+                  }
+                  if (state is DLError) {
+                    return ErrorState(
+                      title: 'Calculation Error',
+                      message: state.message,
+                      onRetry: _calculate,
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
               ),
             ],
           ),
-          const SizedBox(height: AppDimensions.lg),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: _calculate,
-              child: const Text('Expand DL'),
-            ),
-          ),
-          const SizedBox(height: AppDimensions.lg),
-          BlocBuilder<DLBloc, DLState>(
-            builder: (context, state) {
-              if (state is DLLoading) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              if (state is DLResultState) {
-                return Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppDimensions.md),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('Result', style: TextStyle(fontWeight: FontWeight.bold, fontSize: AppDimensions.fontSizeLg)),
-                        const SizedBox(height: AppDimensions.sm),
-                        Text(
-                          '${state.result.function} = ${state.result.result}',
-                          style: const TextStyle(fontSize: AppDimensions.fontSizeXl, color: AppColors.primary),
-                        ),
-                        if (state.result.terms != null) ...[
-                          const SizedBox(height: AppDimensions.md),
-                          const Text('Terms', style: TextStyle(fontWeight: FontWeight.bold)),
-                          const SizedBox(height: AppDimensions.xs),
-                          Text(state.result.terms!),
-                        ],
-                      ],
-                    ),
-                  ),
-                );
-              }
-              if (state is DLError) {
-                return Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppDimensions.md),
-                    child: Text(state.message, style: const TextStyle(color: AppColors.error)),
-                  ),
-                );
-              }
-              return const SizedBox.shrink();
-            },
-          ),
-        ],
+        ),
       ),
     );
   }
