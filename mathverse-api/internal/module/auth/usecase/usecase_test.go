@@ -112,16 +112,16 @@ func (m *mockAuthRepo) RevokeAllUserRefreshTokens(ctx context.Context, userID st
 
 func testConfig() *config.AppConfig {
 	return &config.AppConfig{
-		JWTSecret:           "test-secret-key-that-is-long-enough-for-hs256",
-		AuthTokenExpiry:     15 * time.Minute,
-		RefreshTokenExpiry:  24 * time.Hour,
-		MaxLoginAttempts:    5,
-		LockoutDuration:     15 * time.Minute,
+		JWTSecret:               "test-secret-key-that-is-long-enough-for-hs256",
+		AuthTokenExpiry:         15 * time.Minute,
+		RefreshTokenExpiry:      24 * time.Hour,
+		MaxLoginAttempts:        5,
+		LockoutDuration:         15 * time.Minute,
 		RateLimitRequestsPerMin: 60,
-		CORSAllowedOrigins:  []string{"*"},
-		LogLevel:            "debug",
-		EngineTimeout:       30 * time.Second,
-		AppEnvironment:      "test",
+		CORSAllowedOrigins:      []string{"*"},
+		LogLevel:                "debug",
+		EngineTimeout:           30 * time.Second,
+		AppEnvironment:          "test",
 	}
 }
 

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_animations.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_radius.dart';
-import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_sizes.dart';
+import '../../../../core/theme/app_spacing.dart';
 
 class AssistantPage extends StatefulWidget {
   const AssistantPage({super.key});
@@ -156,7 +156,7 @@ class _AssistantPageState extends State<AssistantPage> with TickerProviderStateM
                 ? _buildWelcomeScreen(theme)
                 : ListView.builder(
                     controller: _scrollController,
-                    padding: EdgeInsets.all(AppSpacing.md),
+                    padding: const EdgeInsets.all(AppSpacing.md),
                     itemCount: _messages.length,
                     itemBuilder: (context, index) {
                       final msg = _messages[index];
@@ -165,7 +165,7 @@ class _AssistantPageState extends State<AssistantPage> with TickerProviderStateM
                         children: [
                           if (showHeader)
                             Padding(
-                              padding: EdgeInsets.symmetric(vertical: AppSpacing.sm),
+                              padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
                               child: Text(
                                 _formatTime(msg.timestamp),
                                 style: theme.textTheme.labelSmall?.copyWith(
@@ -174,7 +174,7 @@ class _AssistantPageState extends State<AssistantPage> with TickerProviderStateM
                               ),
                             ),
                           _MessageBubble(message: msg),
-                          SizedBox(height: AppSpacing.xs),
+                          const SizedBox(height: AppSpacing.xs),
                         ],
                       );
                     },
@@ -182,7 +182,7 @@ class _AssistantPageState extends State<AssistantPage> with TickerProviderStateM
           ),
           if (_isLoading)
             Container(
-              padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.sm),
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.sm),
               alignment: Alignment.centerLeft,
               child: _TypingIndicator(
                 animation: _typingAnimation,
@@ -215,11 +215,11 @@ class _AssistantPageState extends State<AssistantPage> with TickerProviderStateM
                       ),
                       filled: true,
                       fillColor: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-                      contentPadding: EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
                     ),
                   ),
                 ),
-                SizedBox(width: AppSpacing.sm),
+                const SizedBox(width: AppSpacing.sm),
                 AnimatedContainer(
                   duration: AppAnimations.fast,
                   decoration: BoxDecoration(
@@ -267,12 +267,12 @@ class _AssistantPageState extends State<AssistantPage> with TickerProviderStateM
   Widget _buildWelcomeScreen(ThemeData theme) {
     return Center(
       child: SingleChildScrollView(
-        padding: EdgeInsets.all(AppSpacing.xxl),
+        padding: const EdgeInsets.all(AppSpacing.xxl),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.all(AppSpacing.xxl),
+              padding: const EdgeInsets.all(AppSpacing.xxl),
               decoration: BoxDecoration(
                 color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
                 shape: BoxShape.circle,
@@ -283,12 +283,12 @@ class _AssistantPageState extends State<AssistantPage> with TickerProviderStateM
                 color: theme.colorScheme.primary.withValues(alpha: 0.5),
               ),
             ),
-            SizedBox(height: AppSpacing.xxl),
+            const SizedBox(height: AppSpacing.xxl),
             Text(
               'Math Assistant',
               style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),
             ),
-            SizedBox(height: AppSpacing.sm),
+            const SizedBox(height: AppSpacing.sm),
             Text(
               'Ask me anything about math!\nI can help with calculations, concepts, and more.',
               style: theme.textTheme.bodyMedium?.copyWith(
@@ -296,7 +296,7 @@ class _AssistantPageState extends State<AssistantPage> with TickerProviderStateM
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: AppSpacing.xxl),
+            const SizedBox(height: AppSpacing.xxl),
             Wrap(
               spacing: AppSpacing.sm,
               runSpacing: AppSpacing.sm,
@@ -335,8 +335,8 @@ class _MessageBubble extends StatelessWidget {
     return Align(
       alignment: message.isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        margin: EdgeInsets.only(bottom: AppSpacing.xs),
-        padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
+        margin: const EdgeInsets.only(bottom: AppSpacing.xs),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
         decoration: BoxDecoration(
           color: message.isUser
               ? theme.colorScheme.primary
@@ -369,7 +369,7 @@ class _TypingIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceContainerHigh,
         borderRadius: BorderRadius.circular(AppRadius.xl).copyWith(

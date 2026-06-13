@@ -45,5 +45,3 @@ func (uc *CalculatorUsecase) Validate(ctx context.Context, expression string) (*
 	valid, _ := data["valid"].(bool)
 	return &ValidateResult{Valid: valid}, nil
 }
-
-

@@ -11,8 +11,8 @@ import (
 )
 
 type Client struct {
-	baseURL    string
-	http       *http.Client
+	baseURL string
+	http    *http.Client
 }
 
 func New(baseURL string, timeout time.Duration) *Client {

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../theme/app_spacing.dart';
-import '../theme/app_radius.dart';
-import '../theme/app_elevation.dart';
+
 import '../theme/app_colors.dart';
+import '../theme/app_elevation.dart';
+import '../theme/app_radius.dart';
+import '../theme/app_spacing.dart';
 
 class MathVerseCard extends StatelessWidget {
   final Widget child;
@@ -46,7 +47,7 @@ class MathVerseCard extends StatelessWidget {
         onLongPress: onLongPress,
         borderRadius: BorderRadius.circular(borderRadius ?? AppRadius.card),
         child: Container(
-          padding: padding ?? EdgeInsets.all(AppSpacing.cardPadding),
+          padding: padding ?? const EdgeInsets.all(AppSpacing.cardPadding),
           decoration: border != null ? BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius ?? AppRadius.card),
             border: border,
@@ -79,7 +80,7 @@ class MathVerseGlassCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final card = Container(
-      padding: padding ?? EdgeInsets.all(AppSpacing.cardPadding),
+      padding: padding ?? const EdgeInsets.all(AppSpacing.cardPadding),
       decoration: BoxDecoration(
         color: isDark ? AppColors.darkGlassLight : AppColors.glassLight,
         borderRadius: BorderRadius.circular(AppRadius.card),

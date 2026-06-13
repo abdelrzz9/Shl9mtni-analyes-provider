@@ -76,11 +76,11 @@ class MathVerseColors {
   // Glassmorphism colors
   static const Color glassBackground = Color(0xFFFFFFFF);
   static const Color glassBorder = Color(0xFFE0E0E0);
-  static const Color glassOverlay = Color(0xF2F2F2);
+  static const Color glassOverlay = Color(0x00f2f2f2);
 
-  static const Color darkGlassBackground = Color(0x1E1E1E);
-  static const Color darkGlassBorder = Color(0x333333);
-  static const Color darkGlassOverlay = Color(0x2A2A2A);
+  static const Color darkGlassBackground = Color(0x001e1e1e);
+  static const Color darkGlassBorder = Color(0x00333333);
+  static const Color darkGlassOverlay = Color(0x002a2a2a);
 
   // Shadow colors
   static const Color shadowLight = Color(0x0A000000);

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_math_fork/flutter_math.dart';
-import '../theme/app_spacing.dart';
-import '../theme/app_sizes.dart';
+
 import '../theme/app_colors.dart';
+import '../theme/app_sizes.dart';
+import '../theme/app_spacing.dart';
 
 class MathResultDisplay extends StatelessWidget {
   final String expression;
@@ -34,7 +34,7 @@ class MathResultDisplay extends StatelessWidget {
       children: [
         _buildResultCard(context, theme),
         if (steps != null && steps!.isNotEmpty) ...[
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
           _buildStepsCard(context, theme),
         ],
       ],
@@ -44,7 +44,7 @@ class MathResultDisplay extends StatelessWidget {
   Widget _buildResultCard(BuildContext context, ThemeData theme) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(AppSpacing.cardPaddingLarge),
+      padding: const EdgeInsets.all(AppSpacing.cardPaddingLarge),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -62,12 +62,12 @@ class MathResultDisplay extends StatelessWidget {
           Row(
             children: [
               Icon(Icons.check_circle_rounded, color: theme.colorScheme.primary, size: AppSizes.iconMedium),
-              SizedBox(width: AppSpacing.sm),
+              const SizedBox(width: AppSpacing.sm),
               Text('Result', style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w600,
                 color: theme.colorScheme.onPrimaryContainer,
               )),
-              Spacer(),
+              const Spacer(),
               _ActionButton(icon: Icons.copy_rounded, onTap: onCopy, tooltip: 'Copy'),
               if (onShare != null)
                 _ActionButton(icon: Icons.share_rounded, onTap: onShare, tooltip: 'Share'),
@@ -82,7 +82,7 @@ class MathResultDisplay extends StatelessWidget {
                 ),
             ],
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           Text(
             expression,
             style: theme.textTheme.bodyLarge?.copyWith(
@@ -90,7 +90,7 @@ class MathResultDisplay extends StatelessWidget {
               fontFamily: 'monospace',
             ),
           ),
-          SizedBox(height: AppSpacing.sm),
+          const SizedBox(height: AppSpacing.sm),
           SelectableText(
             result,
             style: TextStyle(
@@ -108,7 +108,7 @@ class MathResultDisplay extends StatelessWidget {
   Widget _buildStepsCard(BuildContext context, ThemeData theme) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(AppSpacing.cardPadding),
+      padding: const EdgeInsets.all(AppSpacing.cardPadding),
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(16),
@@ -120,13 +120,13 @@ class MathResultDisplay extends StatelessWidget {
           Row(
             children: [
               Icon(Icons.list_alt_rounded, color: theme.colorScheme.primary, size: AppSizes.iconMedium),
-              SizedBox(width: AppSpacing.sm),
+              const SizedBox(width: AppSpacing.sm),
               Text('Step-by-Step Solution', style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w600,
               )),
             ],
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           ...List.generate(steps!.length, (index) {
             return Padding(
               padding: EdgeInsets.only(bottom: index < steps!.length - 1 ? AppSpacing.md : 0),
@@ -151,10 +151,10 @@ class MathResultDisplay extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: AppSpacing.md),
+                  const SizedBox(width: AppSpacing.md),
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(AppSpacing.md),
+                      padding: const EdgeInsets.all(AppSpacing.md),
                       decoration: BoxDecoration(
                         color: theme.colorScheme.surface,
                         borderRadius: BorderRadius.circular(12),
@@ -202,7 +202,7 @@ class _ActionButton extends StatelessWidget {
           onTap: onTap,
           borderRadius: BorderRadius.circular(8),
           child: Padding(
-            padding: EdgeInsets.all(AppSpacing.sm),
+            padding: const EdgeInsets.all(AppSpacing.sm),
             child: Icon(
               icon,
               size: AppSizes.iconMedium,

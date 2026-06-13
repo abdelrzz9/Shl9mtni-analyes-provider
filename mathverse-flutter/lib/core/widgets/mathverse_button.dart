@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../theme/app_spacing.dart';
+
+import '../theme/app_animations.dart';
+import '../theme/app_elevation.dart';
 import '../theme/app_radius.dart';
 import '../theme/app_sizes.dart';
-import '../theme/app_elevation.dart';
-import '../theme/app_animations.dart';
+import '../theme/app_spacing.dart';
 
 class MathVerseButton extends StatefulWidget {
   final String label;
@@ -119,7 +120,7 @@ class _MathVerseButtonState extends State<MathVerseButton>
                     children: [
                       if (widget.icon != null) ...[
                         Icon(widget.icon, size: AppSizes.iconMedium),
-                        SizedBox(width: AppSpacing.sm),
+                        const SizedBox(width: AppSpacing.sm),
                       ],
                       Text(
                         widget.label,
@@ -196,7 +197,7 @@ class MathVerseFilledIconButton extends StatelessWidget {
         onTap: onPressed,
         customBorder: const CircleBorder(),
         child: Padding(
-          padding: EdgeInsets.all(AppSpacing.sm),
+          padding: const EdgeInsets.all(AppSpacing.sm),
           child: Icon(
             icon,
             size: size ?? AppSizes.iconMedium,

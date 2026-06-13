@@ -4,11 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/extensions/responsive.dart';
 import '../../../../core/theme/app_spacing.dart';
-import '../../../../core/theme/app_sizes.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_radius.dart';
-import '../../../../core/widgets/mathverse_card.dart';
 import '../../../../core/widgets/mathverse_button.dart';
+import '../../../../core/widgets/mathverse_card.dart';
 import '../../../../core/widgets/state_widgets.dart';
 import '../bloc/auth_bloc.dart';
 
@@ -64,14 +61,14 @@ class _ProfileContent extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: AppSpacing.md),
+              const SizedBox(height: AppSpacing.md),
               Text(
                 user.displayName,
                 style: theme.textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              SizedBox(height: AppSpacing.xs),
+              const SizedBox(height: AppSpacing.xs),
               Text(
                 user.email,
                 style: theme.textTheme.bodyMedium?.copyWith(
@@ -81,7 +78,7 @@ class _ProfileContent extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: AppSpacing.xxxl),
+        const SizedBox(height: AppSpacing.xxxl),
         MathVerseCard(
           child: Column(
             children: [
@@ -97,7 +94,7 @@ class _ProfileContent extends StatelessWidget {
                 subtitle: user.email,
               ),
               Divider(height: 1, color: theme.colorScheme.outlineVariant),
-              _ProfileTile(
+              const _ProfileTile(
                 icon: Icons.calendar_today_outlined,
                 title: 'Member Since',
                 subtitle: 'New Member',
@@ -105,7 +102,7 @@ class _ProfileContent extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: AppSpacing.xxl),
+        const SizedBox(height: AppSpacing.xxl),
         MathVerseButton(
           label: 'Sign Out',
           onPressed: () {

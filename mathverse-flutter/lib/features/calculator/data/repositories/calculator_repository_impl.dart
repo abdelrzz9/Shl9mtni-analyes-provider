@@ -17,7 +17,7 @@ class CalculatorRepositoryImpl implements CalculatorRepository {
           .replaceAll('\u03C0', 'pi')
           .replaceAll('^', '^');
 
-      final parser = Parser();
+      final parser = ShuntingYardParser();
       final exp = parser.parse(cleaned);
       final cm = ContextModel();
       final result = exp.evaluate(EvaluationType.REAL, cm);
@@ -27,7 +27,6 @@ class CalculatorRepositoryImpl implements CalculatorRepository {
       return CalculationResult(
         expression: expression,
         result: (result as double),
-        latexOutput: null,
         timestamp: DateTime.now(),
       );
     } catch (e) {

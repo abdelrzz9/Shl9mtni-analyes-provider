@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../theme/app_colors.dart';
-import '../theme/app_spacing.dart';
-import '../theme/app_radius.dart';
+
 import '../theme/app_animations.dart';
+import '../theme/app_colors.dart';
+import '../theme/app_radius.dart';
+import '../theme/app_spacing.dart';
 
 class ShimmerLoading extends StatefulWidget {
   final Widget child;
@@ -52,8 +53,6 @@ class _ShimmerLoadingState extends State<ShimmerLoading>
           blendMode: BlendMode.srcATop,
           shaderCallback: (bounds) {
             return LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
               colors: [
                 Colors.transparent,
                 Colors.white.withValues(alpha: 0.6),
@@ -116,7 +115,7 @@ class SkeletonCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShimmerLoading(
       child: Container(
-        margin: margin ?? EdgeInsets.symmetric(
+        margin: margin ?? const EdgeInsets.symmetric(
           horizontal: AppSpacing.screenPadding,
           vertical: AppSpacing.xs,
         ),
@@ -125,14 +124,14 @@ class SkeletonCard extends StatelessWidget {
           color: Theme.of(context).colorScheme.surfaceContainerLow,
           borderRadius: BorderRadius.circular(AppRadius.card),
         ),
-        child: Padding(
+        child: const Padding(
           padding: EdgeInsets.all(AppSpacing.cardPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SkeletonLoader(height: 16, width: 120),
               SizedBox(height: AppSpacing.sm),
-              SkeletonLoader(height: 14, width: double.infinity),
+              SkeletonLoader(height: 14),
               SizedBox(height: AppSpacing.xs),
               SkeletonLoader(height: 14, width: 200),
             ],
@@ -217,14 +216,14 @@ class PageSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(AppSpacing.screenPadding),
+      padding: const EdgeInsets.all(AppSpacing.screenPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SkeletonLoader(height: 28, width: 200),
-          SizedBox(height: AppSpacing.md),
-          SkeletonLoader(height: 16, width: 300),
-          SizedBox(height: AppSpacing.xxl),
+          const SkeletonLoader(height: 28, width: 200),
+          const SizedBox(height: AppSpacing.md),
+          const SkeletonLoader(height: 16, width: 300),
+          const SizedBox(height: AppSpacing.xxl),
           if (useGrid)
             SkeletonGrid(itemCount: itemCount)
           else

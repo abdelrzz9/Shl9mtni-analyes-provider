@@ -62,14 +62,12 @@ class NavigationConfig {
       icon: Icons.calculate_outlined,
       activeIcon: Icons.calculate_rounded,
       route: calculator,
-      section: NavigationSection.math,
     ),
     NavigationItem(
       label: 'Graph',
       icon: Icons.show_chart_outlined,
       activeIcon: Icons.show_chart_rounded,
       route: graph,
-      section: NavigationSection.math,
     ),
     NavigationItem(
       label: 'AI Assistant',

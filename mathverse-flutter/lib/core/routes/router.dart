@@ -1,32 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../navigation/app_scaffold.dart';
-import '../../features/homepage/presentation/pages/home_page.dart';
+import '../../features/assistant/presentation/pages/assistant_page.dart';
+import '../../features/auth/presentation/pages/login_page.dart';
+import '../../features/auth/presentation/pages/profile_page.dart';
+import '../../features/auth/presentation/pages/register_page.dart';
 import '../../features/calculator/presentation/pages/calculator_page.dart';
 import '../../features/derivatives/presentation/pages/derivative_page.dart';
+import '../../features/dl/presentation/pages/dl_page.dart';
+import '../../features/favorites/presentation/pages/favorites_page.dart';
+import '../../features/graph/presentation/pages/graph_page.dart';
+import '../../features/history/presentation/pages/history_page.dart';
+import '../../features/homepage/presentation/pages/home_page.dart';
 import '../../features/integrals/presentation/pages/integral_page.dart';
 import '../../features/limits/presentation/pages/limit_page.dart';
-import '../../features/taylor/presentation/pages/taylor_page.dart';
-import '../../features/dl/presentation/pages/dl_page.dart';
-import '../../features/graph/presentation/pages/graph_page.dart';
 import '../../features/matrix/presentation/pages/matrix_page.dart';
-import '../../features/statistics/presentation/pages/statistic_page.dart';
 import '../../features/ocr/presentation/pages/ocr_page.dart';
-import '../../features/assistant/presentation/pages/assistant_page.dart';
-import '../../features/history/presentation/pages/history_page.dart';
-import '../../features/favorites/presentation/pages/favorites_page.dart';
-import '../../features/auth/presentation/pages/login_page.dart';
-import '../../features/auth/presentation/pages/register_page.dart';
-import '../../features/auth/presentation/pages/profile_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
+import '../../features/statistics/presentation/pages/statistic_page.dart';
+import '../../features/taylor/presentation/pages/taylor_page.dart';
+import '../navigation/app_scaffold.dart';
 
 final GlobalKey<NavigatorState> _rootNavigator = GlobalKey<NavigatorState>(debugLabel: 'root');
 
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigator,
   initialLocation: '/',
-  debugLogDiagnostics: false,
   routes: [
     ShellRoute(
       builder: (context, state, child) => AppScaffold(child: child),

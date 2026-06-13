@@ -1,4 +1,3 @@
-import signal
 import threading
 from contextlib import contextmanager
 from typing import Any, Callable

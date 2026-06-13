@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/bloc/auth_bloc.dart';
 import '../extensions/responsive.dart';
-import '../theme/app_spacing.dart';
-import '../theme/app_sizes.dart';
-import '../theme/app_colors.dart';
 import '../theme/app_animations.dart';
+import '../theme/app_colors.dart';
 import '../theme/app_radius.dart';
+import '../theme/app_sizes.dart';
+import '../theme/app_spacing.dart';
 import 'navigation_config.dart';
 
 class AppScaffold extends StatefulWidget {

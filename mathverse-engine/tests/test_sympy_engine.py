@@ -17,9 +17,8 @@ from engine.sympy_engine import (
     matrix_transpose,
     calculate_statistics,
     plot_function,
-    safe_parse,
 )
-from engine.sandbox import ExpressionValidator, TimeoutError
+from engine.sandbox import ExpressionValidator
 
 
 class TestExpressionValidation:

@@ -18,15 +18,15 @@ var (
 )
 
 type User struct {
-	ID              string    `json:"id"`
-	Email           string    `json:"email"`
-	PasswordHash    string    `json:"-"`
-	DisplayName     string    `json:"displayName"`
-	CreatedAt       time.Time `json:"createdAt"`
-	UpdatedAt       time.Time `json:"updatedAt"`
-	LoginAttempts   int       `json:"-"`
-	LockedUntil     *time.Time `json:"-"`
-	LastLoginAt     *time.Time `json:"lastLoginAt,omitempty"`
+	ID            string     `json:"id"`
+	Email         string     `json:"email"`
+	PasswordHash  string     `json:"-"`
+	DisplayName   string     `json:"displayName"`
+	CreatedAt     time.Time  `json:"createdAt"`
+	UpdatedAt     time.Time  `json:"updatedAt"`
+	LoginAttempts int        `json:"-"`
+	LockedUntil   *time.Time `json:"-"`
+	LastLoginAt   *time.Time `json:"lastLoginAt,omitempty"`
 }
 
 type RefreshToken struct {

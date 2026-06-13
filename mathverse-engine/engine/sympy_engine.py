@@ -8,7 +8,6 @@ import numpy as np
 from typing import Optional
 
 from .cache import math_cache
-from .logger import logger
 from .sandbox import ExpressionValidator
 
 transformations = standard_transformations + (implicit_multiplication_application,)

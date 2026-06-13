@@ -3,14 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/extensions/responsive.dart';
-import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_radius.dart';
-import '../../../../core/widgets/mathverse_card.dart';
-import '../../../../core/widgets/mathverse_button.dart';
-import '../../../../core/widgets/mathverse_input.dart';
-import '../../../../core/widgets/state_widgets.dart';
+import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/loading_widgets.dart';
 import '../../../../core/widgets/math_result_display.dart';
+import '../../../../core/widgets/mathverse_button.dart';
+import '../../../../core/widgets/mathverse_card.dart';
+import '../../../../core/widgets/mathverse_input.dart';
+import '../../../../core/widgets/state_widgets.dart';
 import '../../data/repositories/limit_repository_impl.dart';
 import '../../domain/usecases/evaluate_limit.dart';
 import '../bloc/limit_bloc.dart';
@@ -90,25 +90,25 @@ class _LimitBodyState extends State<_LimitBody> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildHeader(context),
-                  SizedBox(height: AppSpacing.xxl),
+                  const SizedBox(height: AppSpacing.xxl),
                   _buildForm(context),
                   if (state is LimitInitial) ...[
-                    SizedBox(height: AppSpacing.xxl),
+                    const SizedBox(height: AppSpacing.xxl),
                     _buildExamples(context),
                   ],
                   if (state is LimitLoading) ...[
-                    SizedBox(height: AppSpacing.xxl),
+                    const SizedBox(height: AppSpacing.xxl),
                     _buildLoading(),
                   ],
                   if (state is LimitResultState) ...[
-                    SizedBox(height: AppSpacing.xxl),
+                    const SizedBox(height: AppSpacing.xxl),
                     _buildResult(context, state),
                   ],
                   if (state is LimitError) ...[
-                    SizedBox(height: AppSpacing.xxl),
+                    const SizedBox(height: AppSpacing.xxl),
                     _buildError(state),
                   ],
-                  SizedBox(height: AppSpacing.xxl),
+                  const SizedBox(height: AppSpacing.xxl),
                 ],
               ),
             ),
@@ -129,7 +129,7 @@ class _LimitBodyState extends State<_LimitBody> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: AppSpacing.sm),
+        const SizedBox(height: AppSpacing.sm),
         Text(
           'Compute the limit of any function as it approaches a point',
           style: theme.textTheme.bodyLarge?.copyWith(
@@ -152,42 +152,42 @@ class _LimitBodyState extends State<_LimitBody> {
               fontWeight: FontWeight.w600,
             ),
           ),
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
           MathVerseInput(
             controller: _functionController,
             labelText: 'Function f(x)',
             hintText: 'e.g., x^2, sin(x)/x, 1/x',
-            prefixIcon: Icon(Icons.functions),
+            prefixIcon: const Icon(Icons.functions),
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           Row(
             children: [
               Expanded(
                 child: MathVerseInput(
                   controller: _variableController,
                   labelText: 'Variable',
-                  prefixIcon: Icon(Icons.text_fields),
+                  prefixIcon: const Icon(Icons.text_fields),
                 ),
               ),
-              SizedBox(width: AppSpacing.md),
+              const SizedBox(width: AppSpacing.md),
               Expanded(
                 flex: 2,
                 child: MathVerseInput(
                   controller: _approachController,
                   labelText: 'Approach point',
                   hintText: 'e.g., 0, inf, 1',
-                  prefixIcon: Icon(Icons.my_location),
+                  prefixIcon: const Icon(Icons.my_location),
                 ),
               ),
             ],
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           DropdownButtonFormField<String?>(
-            value: _direction,
+            initialValue: _direction,
             decoration: InputDecoration(
               labelText: 'Direction (optional)',
               filled: true,
-              contentPadding: EdgeInsets.symmetric(
+              contentPadding: const EdgeInsets.symmetric(
                 horizontal: AppSpacing.inputHorizontal,
                 vertical: AppSpacing.inputVertical,
               ),
@@ -207,7 +207,6 @@ class _LimitBodyState extends State<_LimitBody> {
             ),
             items: const [
               DropdownMenuItem<String?>(
-                value: null,
                 child: Text('Both sides'),
               ),
               DropdownMenuItem<String?>(
@@ -221,7 +220,7 @@ class _LimitBodyState extends State<_LimitBody> {
             ],
             onChanged: (value) => setState(() => _direction = value),
           ),
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
           MathVerseButton(
             label: 'Evaluate Limit',
             icon: Icons.calculate,
@@ -240,7 +239,7 @@ class _LimitBodyState extends State<_LimitBody> {
   }
 
   Widget _buildLoading() {
-    return Column(
+    return const Column(
       children: [
         SkeletonCard(height: 160),
         SizedBox(height: AppSpacing.md),
@@ -278,7 +277,6 @@ class _LimitBodyState extends State<_LimitBody> {
           const SnackBar(content: Text('Added to favorites')),
         );
       },
-      isFavorite: false,
     );
   }
 

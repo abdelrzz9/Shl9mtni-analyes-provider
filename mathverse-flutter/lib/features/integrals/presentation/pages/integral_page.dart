@@ -319,7 +319,7 @@ class _IntegralBodyState extends State<_IntegralBody> {
                 onTap: () {
                   Clipboard.setData(ClipboardData(text: resultText));
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       content: Text('Result copied'),
                       behavior: SnackBarBehavior.floating,
                       duration: Duration(seconds: 2),

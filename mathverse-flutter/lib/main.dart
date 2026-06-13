@@ -24,7 +24,7 @@ class MathApp extends StatefulWidget {
 
 class _MathAppState extends State<MathApp> with WidgetsBindingObserver {
   late final AuthCubit _authCubit;
-  ThemeMode _themeMode = ThemeMode.system;
+  final ThemeMode _themeMode = ThemeMode.system;
 
   @override
   void initState() {

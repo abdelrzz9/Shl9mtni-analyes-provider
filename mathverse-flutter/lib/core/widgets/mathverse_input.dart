@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../theme/app_spacing.dart';
+
 import '../theme/app_radius.dart';
 import '../theme/app_sizes.dart';
+import '../theme/app_spacing.dart';
 
 class MathVerseInput extends StatelessWidget {
   final TextEditingController? controller;
@@ -79,7 +80,7 @@ class MathVerseInput extends StatelessWidget {
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         filled: true,
-        contentPadding: EdgeInsets.symmetric(
+        contentPadding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.inputHorizontal,
           vertical: AppSpacing.inputVertical,
         ),
@@ -157,7 +158,7 @@ class MathVerseSearchBar extends StatelessWidget {
           ),
           suffixIcon: controller != null && controller!.text.isNotEmpty
               ? IconButton(
-                  icon: Icon(Icons.close_rounded, size: AppSizes.iconMedium),
+                  icon: const Icon(Icons.close_rounded, size: AppSizes.iconMedium),
                   onPressed: () {
                     controller?.clear();
                     onClear?.call();
@@ -166,7 +167,7 @@ class MathVerseSearchBar extends StatelessWidget {
                 )
               : null,
           border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(
+          contentPadding: const EdgeInsets.symmetric(
             horizontal: AppSpacing.lg,
             vertical: AppSpacing.md,
           ),

@@ -102,7 +102,7 @@ class HomePage extends StatelessWidget {
               left: context.horizontalPadding,
               right: context.horizontalPadding,
             ),
-            sliver: SliverToBoxAdapter(
+            sliver: const SliverToBoxAdapter(
               child: _AnimatedSectionHeader(
                 title: 'Math Tools',
                 icon: Icons.functions_rounded,
@@ -132,7 +132,7 @@ class HomePage extends StatelessWidget {
               left: context.horizontalPadding,
               right: context.horizontalPadding,
             ),
-            sliver: SliverToBoxAdapter(
+            sliver: const SliverToBoxAdapter(
               child: _AnimatedSectionHeader(
                 title: 'Data Tools',
                 icon: Icons.bar_chart_rounded,
@@ -162,7 +162,7 @@ class HomePage extends StatelessWidget {
               left: context.horizontalPadding,
               right: context.horizontalPadding,
             ),
-            sliver: SliverToBoxAdapter(
+            sliver: const SliverToBoxAdapter(
               child: _AnimatedSectionHeader(
                 title: 'Personal',
                 icon: Icons.person_rounded,
@@ -216,7 +216,7 @@ class _SearchSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: AppSpacing.lg),
+      padding: const EdgeInsets.only(bottom: AppSpacing.lg),
       child: MathVerseSearchBar(
         hintText: 'Search math tools, expressions...',
         onTap: () => _showSearchOverlay(context),
@@ -271,7 +271,7 @@ class _MathSearchDelegate extends SearchDelegate<String?> {
     if (results.isEmpty) {
       return Center(
         child: Padding(
-          padding: EdgeInsets.all(AppSpacing.xxxl),
+          padding: const EdgeInsets.all(AppSpacing.xxxl),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -280,14 +280,14 @@ class _MathSearchDelegate extends SearchDelegate<String?> {
                 size: AppSizes.iconMassive,
                 color: Theme.of(context).colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
               ),
-              SizedBox(height: AppSpacing.lg),
+              const SizedBox(height: AppSpacing.lg),
               Text(
                 'No results found',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ),
-              SizedBox(height: AppSpacing.xs),
+              const SizedBox(height: AppSpacing.xs),
               Text(
                 'Try a different search term',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -301,13 +301,13 @@ class _MathSearchDelegate extends SearchDelegate<String?> {
     }
 
     return ListView.builder(
-      padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
       itemCount: results.length,
       itemBuilder: (context, index) {
         final item = results[index];
         return ListTile(
           leading: Container(
-            padding: EdgeInsets.all(AppSpacing.sm),
+            padding: const EdgeInsets.all(AppSpacing.sm),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(AppRadius.md),
@@ -339,7 +339,7 @@ class _GreetingSection extends StatelessWidget {
         final displayName = isAuthenticated && name.isNotEmpty ? name : 'there';
 
         return Padding(
-          padding: EdgeInsets.only(bottom: AppSpacing.xxl),
+          padding: const EdgeInsets.only(bottom: AppSpacing.xxl),
           child: Row(
             children: [
               Expanded(
@@ -353,7 +353,7 @@ class _GreetingSection extends StatelessWidget {
                         letterSpacing: -0.5,
                       ),
                     ),
-                    SizedBox(height: AppSpacing.xs),
+                    const SizedBox(height: AppSpacing.xs),
                     Text(
                       isAuthenticated
                           ? 'Ready to solve something?'
@@ -389,7 +389,7 @@ class _GreetingSection extends StatelessWidget {
               else
                 TextButton.icon(
                   onPressed: () => context.go(NavigationConfig.login),
-                  icon: Icon(Icons.login_rounded, size: AppSizes.iconMedium),
+                  icon: const Icon(Icons.login_rounded, size: AppSizes.iconMedium),
                   label: const Text('Sign In'),
                   style: TextButton.styleFrom(
                     foregroundColor: theme.colorScheme.primary,
@@ -434,13 +434,13 @@ class _SuggestionsRow extends StatelessWidget {
               letterSpacing: 0.5,
             ),
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           SizedBox(
             height: 40,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemCount: HomePage._suggestions.length,
-              separatorBuilder: (_, _) => SizedBox(width: AppSpacing.sm),
+              separatorBuilder: (_, _) => const SizedBox(width: AppSpacing.sm),
               itemBuilder: (context, index) {
                 final chip = HomePage._suggestions[index];
                 return ActionChip(
@@ -503,10 +503,10 @@ class _QuickActionCards extends StatelessWidget {
               letterSpacing: 0.5,
             ),
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           if (isMobile)
             ..._actions.map((action) => Padding(
-              padding: EdgeInsets.only(bottom: AppSpacing.sm),
+              padding: const EdgeInsets.only(bottom: AppSpacing.sm),
               child: _QuickActionCard(action: action),
             ))
           else
@@ -547,7 +547,7 @@ class _QuickActionCard extends StatelessWidget {
 
     return MathVerseCard(
       onTap: () => context.go(action.route),
-      padding: EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.all(AppSpacing.lg),
       color: isDark
           ? action.color.withValues(alpha: 0.12)
           : action.color.withValues(alpha: 0.08),
@@ -557,14 +557,14 @@ class _QuickActionCard extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            padding: EdgeInsets.all(AppSpacing.sm),
+            padding: const EdgeInsets.all(AppSpacing.sm),
             decoration: BoxDecoration(
               color: action.color.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(AppRadius.md),
             ),
             child: Icon(action.icon, color: action.color, size: AppSizes.iconLarge),
           ),
-          SizedBox(width: AppSpacing.md),
+          const SizedBox(width: AppSpacing.md),
           Expanded(
             child: Text(
               action.label,
@@ -607,17 +607,17 @@ class _RecentSection extends StatelessWidget {
                     ? () => context.go(NavigationConfig.history)
                     : null,
               ),
-              SizedBox(height: AppSpacing.md),
+              const SizedBox(height: AppSpacing.md),
               if (state is HistoryLoaded && state.entries.isNotEmpty)
                 ...state.entries.take(3).map((entry) => Padding(
-                  padding: EdgeInsets.only(bottom: AppSpacing.sm),
+                  padding: const EdgeInsets.only(bottom: AppSpacing.sm),
                   child: MathVerseCard(
                     onTap: () => context.go(NavigationConfig.history),
-                    padding: EdgeInsets.all(AppSpacing.lg),
+                    padding: const EdgeInsets.all(AppSpacing.lg),
                     child: Row(
                       children: [
                         Container(
-                          padding: EdgeInsets.all(AppSpacing.xs),
+                          padding: const EdgeInsets.all(AppSpacing.xs),
                           decoration: BoxDecoration(
                             color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
                             borderRadius: BorderRadius.circular(AppRadius.sm),
@@ -628,7 +628,7 @@ class _RecentSection extends StatelessWidget {
                             color: theme.colorScheme.primary,
                           ),
                         ),
-                        SizedBox(width: AppSpacing.md),
+                        const SizedBox(width: AppSpacing.md),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -642,7 +642,7 @@ class _RecentSection extends StatelessWidget {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              SizedBox(height: AppSpacing.xxs),
+                              const SizedBox(height: AppSpacing.xxs),
                               Text(
                                 entry.result.isNotEmpty ? '= ${entry.result}' : '',
                                 style: theme.textTheme.bodySmall?.copyWith(
@@ -655,7 +655,7 @@ class _RecentSection extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(width: AppSpacing.sm),
+                        const SizedBox(width: AppSpacing.sm),
                         Text(
                           _timeAgo(entry.timestamp),
                           style: theme.textTheme.labelSmall?.copyWith(
@@ -679,7 +679,7 @@ class _RecentSection extends StatelessWidget {
     final theme = Theme.of(context);
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(AppSpacing.xxxl),
+      padding: const EdgeInsets.all(AppSpacing.xxxl),
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceContainerLow.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(AppRadius.card),
@@ -690,7 +690,7 @@ class _RecentSection extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(AppSpacing.lg),
+            padding: const EdgeInsets.all(AppSpacing.lg),
             decoration: BoxDecoration(
               color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
               shape: BoxShape.circle,
@@ -701,7 +701,7 @@ class _RecentSection extends StatelessWidget {
               color: theme.colorScheme.primary.withValues(alpha: 0.5),
             ),
           ),
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
           Text(
             'No recent calculations',
             style: theme.textTheme.titleSmall?.copyWith(
@@ -709,7 +709,7 @@ class _RecentSection extends StatelessWidget {
               color: theme.colorScheme.onSurfaceVariant,
             ),
           ),
-          SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             'Your calculations will appear here',
             style: theme.textTheme.bodySmall?.copyWith(
@@ -750,31 +750,31 @@ class _FavoritesShortcut extends StatelessWidget {
             actionLabel: 'View all',
             onAction: () => context.go(NavigationConfig.favorites),
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           Row(
             children: [
               Expanded(
                 child: MathVerseCard(
                   onTap: () => context.go(NavigationConfig.favorites),
-                  padding: EdgeInsets.all(AppSpacing.lg),
+                  padding: const EdgeInsets.all(AppSpacing.lg),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
                           Container(
-                            padding: EdgeInsets.all(AppSpacing.sm),
+                            padding: const EdgeInsets.all(AppSpacing.sm),
                             decoration: BoxDecoration(
                               color: theme.colorScheme.tertiaryContainer.withValues(alpha: 0.5),
                               borderRadius: BorderRadius.circular(AppRadius.md),
                             ),
-                            child: Icon(
+                            child: const Icon(
                               Icons.star_rounded,
                               color: AppColors.warning,
                               size: AppSizes.iconLarge,
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           if (!isMobile)
                             Text(
                               'Saved calculations',
@@ -784,7 +784,7 @@ class _FavoritesShortcut extends StatelessWidget {
                             ),
                         ],
                       ),
-                      SizedBox(height: AppSpacing.md),
+                      const SizedBox(height: AppSpacing.md),
                       Text(
                         'Quick access to your favorites',
                         style: theme.textTheme.bodySmall?.copyWith(
@@ -796,18 +796,18 @@ class _FavoritesShortcut extends StatelessWidget {
                 ),
               ),
               if (!isMobile) ...[
-                SizedBox(width: AppSpacing.md),
+                const SizedBox(width: AppSpacing.md),
                 Expanded(
                   child: MathVerseCard(
                     onTap: () => context.go(NavigationConfig.history),
-                    padding: EdgeInsets.all(AppSpacing.lg),
+                    padding: const EdgeInsets.all(AppSpacing.lg),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
                             Container(
-                              padding: EdgeInsets.all(AppSpacing.sm),
+                              padding: const EdgeInsets.all(AppSpacing.sm),
                               decoration: BoxDecoration(
                                 color: theme.colorScheme.secondaryContainer.withValues(alpha: 0.5),
                                 borderRadius: BorderRadius.circular(AppRadius.md),
@@ -818,7 +818,7 @@ class _FavoritesShortcut extends StatelessWidget {
                                 size: AppSizes.iconLarge,
                               ),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             Text(
                               'All history',
                               style: theme.textTheme.labelSmall?.copyWith(
@@ -827,7 +827,7 @@ class _FavoritesShortcut extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(height: AppSpacing.md),
+                        const SizedBox(height: AppSpacing.md),
                         Text(
                           'Browse past calculations',
                           style: theme.textTheme.bodySmall?.copyWith(
@@ -875,7 +875,7 @@ class _AnimatedSectionHeader extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            padding: EdgeInsets.all(AppSpacing.xs),
+            padding: const EdgeInsets.all(AppSpacing.xs),
             decoration: BoxDecoration(
               color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(AppRadius.sm),
@@ -886,7 +886,7 @@ class _AnimatedSectionHeader extends StatelessWidget {
               color: theme.colorScheme.primary,
             ),
           ),
-          SizedBox(width: AppSpacing.sm),
+          const SizedBox(width: AppSpacing.sm),
           Text(
             title,
             style: theme.textTheme.titleMedium?.copyWith(
@@ -912,7 +912,7 @@ class _FeatureCard extends StatelessWidget {
 
     return MathVerseCard(
       onTap: () => context.go(feature.route),
-      padding: EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.all(AppSpacing.lg),
       hasShadow: false,
       color: theme.colorScheme.surfaceContainerLow,
       border: Border.all(
@@ -923,7 +923,7 @@ class _FeatureCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            padding: EdgeInsets.all(AppSpacing.sm),
+            padding: const EdgeInsets.all(AppSpacing.sm),
             decoration: BoxDecoration(
               color: _categoryColor(theme).withValues(alpha: isDark ? 0.15 : 0.1),
               borderRadius: BorderRadius.circular(AppRadius.md),
@@ -934,7 +934,7 @@ class _FeatureCard extends StatelessWidget {
               color: _categoryColor(theme),
             ),
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           Text(
             feature.title,
             style: theme.textTheme.titleSmall?.copyWith(
@@ -943,7 +943,7 @@ class _FeatureCard extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          SizedBox(height: AppSpacing.xxs),
+          const SizedBox(height: AppSpacing.xxs),
           Text(
             feature.description,
             style: theme.textTheme.bodySmall?.copyWith(

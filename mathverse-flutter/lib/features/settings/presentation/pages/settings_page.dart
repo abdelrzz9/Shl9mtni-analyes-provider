@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/extensions/responsive.dart';
 import '../../../../core/theme/app_spacing.dart';
-import '../../../../core/theme/app_radius.dart';
 import '../../../../core/widgets/mathverse_card.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -28,8 +27,8 @@ class _SettingsPageState extends State<SettingsPage> {
       body: ListView(
         padding: context.screenPadding,
         children: [
-          _SectionTitle(title: 'Preferences'),
-          SizedBox(height: AppSpacing.sm),
+          const _SectionTitle(title: 'Preferences'),
+          const SizedBox(height: AppSpacing.sm),
           MathVerseCard(
             child: Column(
               children: [
@@ -67,9 +66,9 @@ class _SettingsPageState extends State<SettingsPage> {
               ],
             ),
           ),
-          SizedBox(height: AppSpacing.xxl),
-          _SectionTitle(title: 'Appearance'),
-          SizedBox(height: AppSpacing.sm),
+          const SizedBox(height: AppSpacing.xxl),
+          const _SectionTitle(title: 'Appearance'),
+          const SizedBox(height: AppSpacing.sm),
           MathVerseCard(
             child: ListTile(
               leading: Icon(Icons.palette_outlined, color: theme.colorScheme.primary),
@@ -78,17 +77,17 @@ class _SettingsPageState extends State<SettingsPage> {
               trailing: const Icon(Icons.chevron_right_rounded),
             ),
           ),
-          SizedBox(height: AppSpacing.xxl),
-          _SectionTitle(title: 'About'),
-          SizedBox(height: AppSpacing.sm),
+          const SizedBox(height: AppSpacing.xxl),
+          const _SectionTitle(title: 'About'),
+          const SizedBox(height: AppSpacing.sm),
           MathVerseCard(
             child: Column(
               children: [
-                _InfoTile(title: 'Version', subtitle: '1.0.0'),
+                const _InfoTile(title: 'Version', subtitle: '1.0.0'),
                 Divider(height: 1, color: theme.colorScheme.outlineVariant),
-                _InfoTile(title: 'Build', subtitle: '2024.1'),
+                const _InfoTile(title: 'Build', subtitle: '2024.1'),
                 Divider(height: 1, color: theme.colorScheme.outlineVariant),
-                _InfoTile(title: 'Developer', subtitle: 'MathVerse Team'),
+                const _InfoTile(title: 'Developer', subtitle: 'MathVerse Team'),
               ],
             ),
           ),

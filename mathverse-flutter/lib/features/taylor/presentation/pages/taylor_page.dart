@@ -98,7 +98,7 @@ class _TaylorBodyState extends State<_TaylorBody> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return SingleChildScrollView(
-      padding: EdgeInsets.all(AppSpacing.screenPadding),
+      padding: const EdgeInsets.all(AppSpacing.screenPadding),
       child: Center(
         child: Container(
           constraints: const BoxConstraints(maxWidth: AppSpacing.contentMaxWidth),
@@ -116,7 +116,7 @@ class _TaylorBodyState extends State<_TaylorBody> {
                       prefixIcon: Icon(Icons.functions_rounded, size: AppSizes.iconMedium, color: theme.colorScheme.primary),
                       onSubmitted: (_) => _calculate(),
                     ),
-                    SizedBox(height: AppSpacing.md),
+                    const SizedBox(height: AppSpacing.md),
                     Row(
                       children: [
                         Expanded(
@@ -126,7 +126,7 @@ class _TaylorBodyState extends State<_TaylorBody> {
                             prefixIcon: Icon(Icons.text_fields_rounded, size: AppSizes.iconMedium, color: theme.colorScheme.primary),
                           ),
                         ),
-                        SizedBox(width: AppSpacing.md),
+                        const SizedBox(width: AppSpacing.md),
                         Expanded(
                           child: MathVerseInput(
                             controller: _centerController,
@@ -136,7 +136,7 @@ class _TaylorBodyState extends State<_TaylorBody> {
                         ),
                       ],
                     ),
-                    SizedBox(height: AppSpacing.md),
+                    const SizedBox(height: AppSpacing.md),
                     Row(
                       children: [
                         Text('Degree/Order', style: theme.textTheme.titleSmall?.copyWith(
@@ -153,9 +153,9 @@ class _TaylorBodyState extends State<_TaylorBody> {
                             children: [
                               InkWell(
                                 onTap: () => setState(() => _order = (_order > 1) ? _order - 1 : 1),
-                                borderRadius: BorderRadius.horizontal(left: Radius.circular(AppRadius.input)),
+                                borderRadius: const BorderRadius.horizontal(left: Radius.circular(AppRadius.input)),
                                 child: Padding(
-                                  padding: EdgeInsets.all(AppSpacing.md),
+                                  padding: const EdgeInsets.all(AppSpacing.md),
                                   child: Icon(Icons.remove_rounded, size: AppSizes.iconMedium, color: theme.colorScheme.primary),
                                 ),
                               ),
@@ -168,9 +168,9 @@ class _TaylorBodyState extends State<_TaylorBody> {
                               ),
                               InkWell(
                                 onTap: () => setState(() => _order = _order + 1),
-                                borderRadius: BorderRadius.horizontal(right: Radius.circular(AppRadius.input)),
+                                borderRadius: const BorderRadius.horizontal(right: Radius.circular(AppRadius.input)),
                                 child: Padding(
-                                  padding: EdgeInsets.all(AppSpacing.md),
+                                  padding: const EdgeInsets.all(AppSpacing.md),
                                   child: Icon(Icons.add_rounded, size: AppSizes.iconMedium, color: theme.colorScheme.primary),
                                 ),
                               ),
@@ -182,22 +182,22 @@ class _TaylorBodyState extends State<_TaylorBody> {
                   ],
                 ),
               ),
-              SizedBox(height: AppSpacing.lg),
+              const SizedBox(height: AppSpacing.lg),
               ExamplesSection(
                 examples: const ['sin(x)', 'cos(x)', 'exp(x)', 'ln(1+x)', '1/(1-x)'],
                 onTap: _setExample,
               ),
-              SizedBox(height: AppSpacing.xl),
+              const SizedBox(height: AppSpacing.xl),
               MathVerseButton(
                 label: 'Expand Series',
                 onPressed: _calculate,
                 icon: Icons.calculate_rounded,
               ),
-              SizedBox(height: AppSpacing.xl),
+              const SizedBox(height: AppSpacing.xl),
               BlocBuilder<TaylorBloc, TaylorState>(
                 builder: (context, state) {
                   if (state is TaylorLoading) {
-                    return Column(
+                    return const Column(
                       children: [
                         SkeletonCard(height: 160),
                         SizedBox(height: AppSpacing.md),

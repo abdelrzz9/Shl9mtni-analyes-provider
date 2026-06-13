@@ -112,13 +112,13 @@ class _RegisterPageState extends State<RegisterPage> {
         child: SafeArea(
           child: Center(
             child: SingleChildScrollView(
-              padding: EdgeInsets.all(AppSpacing.screenPadding),
+              padding: const EdgeInsets.all(AppSpacing.screenPadding),
               child: ConstrainedBox(
                 constraints: BoxConstraints(
                   maxWidth: isDesktop ? AppSpacing.formMaxWidth : double.infinity,
                 ),
                 child: MathVerseGlassCard(
-                  padding: EdgeInsets.all(AppSpacing.cardPaddingLarge),
+                  padding: const EdgeInsets.all(AppSpacing.cardPaddingLarge),
                   child: Form(
                     key: _formKey,
                     child: Column(
@@ -130,7 +130,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           size: AppSizes.iconMassive,
                           color: colors.primary,
                         ),
-                        SizedBox(height: AppSpacing.md),
+                        const SizedBox(height: AppSpacing.md),
                         Text(
                           'Create Account',
                           textAlign: TextAlign.center,
@@ -139,7 +139,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             color: colors.primary,
                           ),
                         ),
-                        SizedBox(height: AppSpacing.xs),
+                        const SizedBox(height: AppSpacing.xs),
                         Text(
                           'Join MathVerse today',
                           textAlign: TextAlign.center,
@@ -147,12 +147,12 @@ class _RegisterPageState extends State<RegisterPage> {
                             color: colors.onSurfaceVariant,
                           ),
                         ),
-                        SizedBox(height: AppSpacing.xxxl),
+                        const SizedBox(height: AppSpacing.xxxl),
                         MathVerseInput(
                           controller: _nameController,
                           textInputAction: TextInputAction.next,
                           labelText: 'Display Name',
-                          prefixIcon: Icon(Icons.person_outlined),
+                          prefixIcon: const Icon(Icons.person_outlined),
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
                               return 'Name is required';
@@ -163,13 +163,13 @@ class _RegisterPageState extends State<RegisterPage> {
                             return null;
                           },
                         ),
-                        SizedBox(height: AppSpacing.md),
+                        const SizedBox(height: AppSpacing.md),
                         MathVerseInput(
                           controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
                           labelText: 'Email',
-                          prefixIcon: Icon(Icons.email_outlined),
+                          prefixIcon: const Icon(Icons.email_outlined),
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
                               return 'Email is required';
@@ -180,13 +180,13 @@ class _RegisterPageState extends State<RegisterPage> {
                             return null;
                           },
                         ),
-                        SizedBox(height: AppSpacing.md),
+                        const SizedBox(height: AppSpacing.md),
                         MathVerseInput(
                           controller: _passwordController,
                           obscureText: _obscurePassword,
                           textInputAction: TextInputAction.next,
                           labelText: 'Password',
-                          prefixIcon: Icon(Icons.lock_outlined),
+                          prefixIcon: const Icon(Icons.lock_outlined),
                           suffixIcon: IconButton(
                             icon: Icon(
                               _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
@@ -205,7 +205,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             return null;
                           },
                         ),
-                        SizedBox(height: AppSpacing.sm),
+                        const SizedBox(height: AppSpacing.sm),
                         if (_passwordController.text.isNotEmpty)
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -225,7 +225,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: AppSpacing.xs),
+                              const SizedBox(height: AppSpacing.xs),
                               Text(
                                 _strengthLabel(passwordStrength),
                                 style: theme.labelSmall?.copyWith(
@@ -235,13 +235,13 @@ class _RegisterPageState extends State<RegisterPage> {
                               ),
                             ],
                           ),
-                        SizedBox(height: AppSpacing.md),
+                        const SizedBox(height: AppSpacing.md),
                         MathVerseInput(
                           controller: _confirmPasswordController,
                           obscureText: true,
                           textInputAction: TextInputAction.done,
                           labelText: 'Confirm Password',
-                          prefixIcon: Icon(Icons.lock_outlined),
+                          prefixIcon: const Icon(Icons.lock_outlined),
                           validator: (value) {
                             if (value != _passwordController.text) {
                               return 'Passwords do not match';
@@ -249,7 +249,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             return null;
                           },
                         ),
-                        SizedBox(height: AppSpacing.md),
+                        const SizedBox(height: AppSpacing.md),
                         Row(
                           children: [
                             SizedBox(
@@ -282,14 +282,14 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                           ],
                         ),
-                        SizedBox(height: AppSpacing.lg),
+                        const SizedBox(height: AppSpacing.lg),
                         BlocBuilder<AuthCubit, AuthState>(
                           builder: (context, state) {
                             if (state is AuthError) {
                               return Padding(
-                                padding: EdgeInsets.only(bottom: AppSpacing.md),
+                                padding: const EdgeInsets.only(bottom: AppSpacing.md),
                                 child: Container(
-                                  padding: EdgeInsets.all(AppSpacing.md),
+                                  padding: const EdgeInsets.all(AppSpacing.md),
                                   decoration: BoxDecoration(
                                     color: colors.errorContainer.withValues(alpha: 0.5),
                                     borderRadius: BorderRadius.circular(AppRadius.md),
@@ -298,7 +298,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   child: Row(
                                     children: [
                                       Icon(Icons.error_outline, color: colors.error, size: AppSizes.iconMedium),
-                                      SizedBox(width: AppSpacing.sm),
+                                      const SizedBox(width: AppSpacing.sm),
                                       Expanded(
                                         child: Text(
                                           state.message,
@@ -323,7 +323,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             );
                           },
                         ),
-                        SizedBox(height: AppSpacing.xxl),
+                        const SizedBox(height: AppSpacing.xxl),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

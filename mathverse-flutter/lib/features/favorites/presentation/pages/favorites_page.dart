@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/extensions/responsive.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_radius.dart';
-import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_sizes.dart';
+import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/loading_widgets.dart';
 import '../../../../core/widgets/mathverse_card.dart';
 import '../../../../core/widgets/mathverse_input.dart';
@@ -72,7 +72,7 @@ class _FavoritesBodyState extends State<_FavoritesBody> {
       builder: (context, state) {
         if (state is HistoryLoading) {
           return Padding(
-            padding: EdgeInsets.all(AppSpacing.md),
+            padding: const EdgeInsets.all(AppSpacing.md),
             child: SkeletonGrid(itemCount: 4, crossAxisCount: context.isDesktop ? 3 : context.isTablet ? 2 : 2),
           );
         }
@@ -118,7 +118,7 @@ class _FavoritesBodyState extends State<_FavoritesBody> {
         return Column(
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.lg, AppSpacing.lg, AppSpacing.sm),
+              padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.lg, AppSpacing.lg, AppSpacing.sm),
               child: Column(
                 children: [
                   MathVerseSearchBar(
@@ -130,13 +130,13 @@ class _FavoritesBodyState extends State<_FavoritesBody> {
                       setState(() => _searchQuery = '');
                     },
                   ),
-                  SizedBox(height: AppSpacing.sm),
+                  const SizedBox(height: AppSpacing.sm),
                   SizedBox(
                     height: 36,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemCount: _features.length,
-                      separatorBuilder: (context, index) => SizedBox(width: AppSpacing.sm),
+                      separatorBuilder: (context, index) => const SizedBox(width: AppSpacing.sm),
                       itemBuilder: (context, index) {
                         final feature = _features[index];
                         final isSelected = _selectedFeature == feature;
@@ -163,7 +163,7 @@ class _FavoritesBodyState extends State<_FavoritesBody> {
                   final crossAxisCount = constraints.maxWidth > 900 ? 3 : constraints.maxWidth > 600 ? 2 : 2;
                   final childAspectRatio = constraints.maxWidth > 900 ? 1.2 : 1.1;
                   return GridView.builder(
-                    padding: EdgeInsets.fromLTRB(AppSpacing.lg, 0, AppSpacing.lg, AppSpacing.xxl),
+                    padding: const EdgeInsets.fromLTRB(AppSpacing.lg, 0, AppSpacing.lg, AppSpacing.xxl),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: crossAxisCount,
                       childAspectRatio: childAspectRatio,
@@ -209,14 +209,14 @@ class _FavoriteCard extends StatelessWidget {
     final theme = Theme.of(context);
     return MathVerseCard(
       onTap: onTap,
-      padding: EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.all(AppSpacing.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
               Container(
-                padding: EdgeInsets.all(AppSpacing.sm),
+                padding: const EdgeInsets.all(AppSpacing.sm),
                 decoration: BoxDecoration(
                   color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
                   borderRadius: BorderRadius.circular(AppRadius.md),
@@ -227,7 +227,7 @@ class _FavoriteCard extends StatelessWidget {
                   color: theme.colorScheme.primary,
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               IconButton(
                 icon: const Icon(Icons.star_rounded, color: AppColors.warning),
                 onPressed: onUnfavorite,
@@ -236,7 +236,7 @@ class _FavoriteCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: AppSpacing.sm),
+          const SizedBox(height: AppSpacing.sm),
           Text(
             entry.input,
             style: theme.textTheme.bodyMedium?.copyWith(
@@ -246,7 +246,7 @@ class _FavoriteCard extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          SizedBox(height: AppSpacing.xs),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             '= ${entry.result}',
             style: theme.textTheme.bodySmall?.copyWith(
@@ -256,9 +256,9 @@ class _FavoriteCard extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          Spacer(),
+          const Spacer(),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 2),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 2),
             decoration: BoxDecoration(
               color: theme.colorScheme.surfaceContainerHighest,
               borderRadius: BorderRadius.circular(AppRadius.full),

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import '../theme/app_spacing.dart';
-import '../theme/app_sizes.dart';
+
 import '../theme/app_radius.dart';
-import '../theme/app_colors.dart';
-import '../theme/app_animations.dart';
+import '../theme/app_sizes.dart';
+import '../theme/app_spacing.dart';
 import 'mathverse_button.dart';
 import 'mathverse_card.dart';
 
@@ -28,12 +27,12 @@ class EmptyState extends StatelessWidget {
     final theme = Theme.of(context);
     return Center(
       child: Padding(
-        padding: EdgeInsets.all(AppSpacing.xxxl),
+        padding: const EdgeInsets.all(AppSpacing.xxxl),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.all(AppSpacing.xxl),
+              padding: const EdgeInsets.all(AppSpacing.xxl),
               decoration: BoxDecoration(
                 color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
                 shape: BoxShape.circle,
@@ -44,7 +43,7 @@ class EmptyState extends StatelessWidget {
                 color: theme.colorScheme.primary.withValues(alpha: 0.5),
               ),
             ),
-            SizedBox(height: AppSpacing.xxl),
+            const SizedBox(height: AppSpacing.xxl),
             Text(
               title,
               style: theme.textTheme.titleLarge?.copyWith(
@@ -53,7 +52,7 @@ class EmptyState extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             if (subtitle != null) ...[
-              SizedBox(height: AppSpacing.sm),
+              const SizedBox(height: AppSpacing.sm),
               Text(
                 subtitle!,
                 style: theme.textTheme.bodyMedium?.copyWith(
@@ -63,7 +62,7 @@ class EmptyState extends StatelessWidget {
               ),
             ],
             if (actionLabel != null && onAction != null) ...[
-              SizedBox(height: AppSpacing.xxl),
+              const SizedBox(height: AppSpacing.xxl),
               MathVerseButton(
                 label: actionLabel!,
                 onPressed: onAction,
@@ -97,12 +96,12 @@ class ErrorState extends StatelessWidget {
     final theme = Theme.of(context);
     return Center(
       child: Padding(
-        padding: EdgeInsets.all(AppSpacing.xxxl),
+        padding: const EdgeInsets.all(AppSpacing.xxxl),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.all(AppSpacing.xxl),
+              padding: const EdgeInsets.all(AppSpacing.xxl),
               decoration: BoxDecoration(
                 color: theme.colorScheme.errorContainer.withValues(alpha: 0.3),
                 shape: BoxShape.circle,
@@ -113,7 +112,7 @@ class ErrorState extends StatelessWidget {
                 color: theme.colorScheme.error,
               ),
             ),
-            SizedBox(height: AppSpacing.xxl),
+            const SizedBox(height: AppSpacing.xxl),
             if (title != null) ...[
               Text(
                 title!,
@@ -122,7 +121,7 @@ class ErrorState extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: AppSpacing.sm),
+              const SizedBox(height: AppSpacing.sm),
             ],
             Text(
               message,
@@ -132,7 +131,7 @@ class ErrorState extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             if (onRetry != null) ...[
-              SizedBox(height: AppSpacing.xxl),
+              const SizedBox(height: AppSpacing.xxl),
               MathVerseButton(
                 label: 'Try Again',
                 onPressed: onRetry,
@@ -170,7 +169,7 @@ class LoadingOverlay extends StatelessWidget {
             color: theme.colorScheme.scrim.withValues(alpha: 0.3),
             child: Center(
               child: MathVerseCard(
-                padding: EdgeInsets.all(AppSpacing.xxl),
+                padding: const EdgeInsets.all(AppSpacing.xxl),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -178,7 +177,7 @@ class LoadingOverlay extends StatelessWidget {
                       color: theme.colorScheme.primary,
                     ),
                     if (message != null) ...[
-                      SizedBox(height: AppSpacing.md),
+                      const SizedBox(height: AppSpacing.md),
                       Text(
                         message!,
                         style: theme.textTheme.bodyMedium,
@@ -211,7 +210,7 @@ class LoadingIndicator extends StatelessWidget {
             strokeWidth: 3,
           ),
           if (message != null) ...[
-            SizedBox(height: AppSpacing.lg),
+            const SizedBox(height: AppSpacing.lg),
             Text(
               message!,
               style: theme.textTheme.bodyMedium?.copyWith(
@@ -252,7 +251,7 @@ class ResultCard extends StatelessWidget {
             children: [
               if (icon != null) ...[
                 Icon(icon!, size: AppSizes.iconMedium, color: theme.colorScheme.primary),
-                SizedBox(width: AppSpacing.sm),
+                const SizedBox(width: AppSpacing.sm),
               ],
               Text(
                 label,
@@ -261,13 +260,13 @@ class ResultCard extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              if (actions != null) ...actions!,
+              ...?actions,
             ],
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           Container(
             width: double.infinity,
-            padding: EdgeInsets.all(AppSpacing.md),
+            padding: const EdgeInsets.all(AppSpacing.md),
             decoration: BoxDecoration(
               color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(AppRadius.md),
@@ -306,7 +305,7 @@ class StepByStepCard extends StatelessWidget {
           Row(
             children: [
               Icon(Icons.list_alt_rounded, size: AppSizes.iconMedium, color: theme.colorScheme.primary),
-              SizedBox(width: AppSpacing.sm),
+              const SizedBox(width: AppSpacing.sm),
               Text(
                 title,
                 style: theme.textTheme.titleMedium?.copyWith(
@@ -315,7 +314,7 @@ class StepByStepCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           ...List.generate(steps.length, (index) {
             return Padding(
               padding: EdgeInsets.only(bottom: index < steps.length - 1 ? AppSpacing.sm : 0),
@@ -323,7 +322,7 @@ class StepByStepCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 2),
+                    margin: const EdgeInsets.only(top: 2),
                     width: 24,
                     height: 24,
                     decoration: BoxDecoration(
@@ -340,7 +339,7 @@ class StepByStepCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: AppSpacing.md),
+                  const SizedBox(width: AppSpacing.md),
                   Expanded(
                     child: Text(
                       steps[index],
@@ -407,8 +406,8 @@ class ExamplesSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SectionHeader(title: 'Examples'),
-        SizedBox(height: AppSpacing.sm),
+        const SectionHeader(title: 'Examples'),
+        const SizedBox(height: AppSpacing.sm),
         Wrap(
           spacing: AppSpacing.sm,
           runSpacing: AppSpacing.sm,

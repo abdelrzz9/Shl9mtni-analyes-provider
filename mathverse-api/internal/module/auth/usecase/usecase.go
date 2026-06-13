@@ -206,12 +206,12 @@ func (uc *AuthUsecase) generateTokens(ctx context.Context, user *repository.User
 	}
 
 	refreshTokenJWT := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"user_id":         user.ID,
+		"user_id":          user.ID,
 		"refresh_token_id": refreshTokenID,
-		"token_hash":      refreshTokenRaw,
-		"exp":             time.Now().Add(uc.cfg.RefreshTokenExpiry).Unix(),
-		"iat":             time.Now().Unix(),
-		"token_type":      "refresh",
+		"token_hash":       refreshTokenRaw,
+		"exp":              time.Now().Add(uc.cfg.RefreshTokenExpiry).Unix(),
+		"iat":              time.Now().Unix(),
+		"token_type":       "refresh",
 	})
 
 	refreshTokenStr, err := refreshTokenJWT.SignedString([]byte(uc.cfg.JWTSecret))

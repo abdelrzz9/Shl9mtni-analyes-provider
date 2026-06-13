@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'app_colors.dart';
-import 'app_radius.dart';
 import 'app_elevation.dart';
-import 'app_spacing.dart';
+import 'app_radius.dart';
 import 'app_sizes.dart';
+import 'app_spacing.dart';
 
 class AppTheme {
   AppTheme._();
@@ -44,12 +45,12 @@ class AppTheme {
         scrim: AppColors.overlayLight,
       ),
       scaffoldBackgroundColor: AppColors.background,
-      dividerTheme: DividerThemeData(
+      dividerTheme: const DividerThemeData(
         color: AppColors.outlineVariant,
         thickness: 1,
         space: 0,
       ),
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.surface,
         foregroundColor: AppColors.onSurface,
         elevation: AppElevation.appBar,
@@ -176,26 +177,26 @@ class AppTheme {
           borderRadius: BorderRadius.circular(AppRadius.xl),
         ),
       ),
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColors.surface,
         selectedItemColor: AppColors.primary,
         unselectedItemColor: AppColors.onSurfaceVariant,
         type: BottomNavigationBarType.fixed,
         elevation: AppElevation.navigationBar,
-        selectedLabelStyle: const TextStyle(
+        selectedLabelStyle: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w600,
         ),
-        unselectedLabelStyle: const TextStyle(
+        unselectedLabelStyle: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w400,
         ),
       ),
-      navigationBarTheme: NavigationBarThemeData(
+      navigationBarTheme: const NavigationBarThemeData(
         backgroundColor: AppColors.surface,
         indicatorColor: AppColors.primaryContainer,
       ),
-      navigationRailTheme: NavigationRailThemeData(
+      navigationRailTheme: const NavigationRailThemeData(
         backgroundColor: AppColors.surface,
         indicatorColor: AppColors.primaryContainer,
       ),
@@ -226,7 +227,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(AppRadius.dialog),
         ),
       ),
-      bottomSheetTheme: BottomSheetThemeData(
+      bottomSheetTheme: const BottomSheetThemeData(
         backgroundColor: AppColors.surface,
         elevation: AppElevation.sheet,
         shape: RoundedRectangleBorder(
@@ -439,11 +440,11 @@ class AppTheme {
           fontWeight: FontWeight.w400,
         ),
       ),
-      navigationBarTheme: NavigationBarThemeData(
+      navigationBarTheme: const NavigationBarThemeData(
         backgroundColor: AppColors.darkSurface,
         indicatorColor: AppColors.darkPrimaryContainer,
       ),
-      navigationRailTheme: NavigationRailThemeData(
+      navigationRailTheme: const NavigationRailThemeData(
         backgroundColor: AppColors.darkSurface,
         indicatorColor: AppColors.darkPrimaryContainer,
       ),
@@ -474,7 +475,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(AppRadius.dialog),
         ),
       ),
-      bottomSheetTheme: BottomSheetThemeData(
+      bottomSheetTheme: const BottomSheetThemeData(
         backgroundColor: AppColors.darkSurface,
         elevation: AppElevation.sheet,
         shape: RoundedRectangleBorder(

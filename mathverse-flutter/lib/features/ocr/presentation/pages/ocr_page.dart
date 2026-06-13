@@ -6,8 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../core/extensions/responsive.dart';
 import '../../../../core/theme/app_animations.dart';
 import '../../../../core/theme/app_radius.dart';
-import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_sizes.dart';
+import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/mathverse_button.dart';
 import '../../../../core/widgets/mathverse_card.dart';
 
@@ -98,7 +98,7 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: EdgeInsets.all(AppSpacing.xxl),
+            padding: const EdgeInsets.all(AppSpacing.xxl),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 600),
               child: _image == null
@@ -119,7 +119,7 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
           _buildDragTarget(theme)
         else ...[
           Container(
-            padding: EdgeInsets.all(AppSpacing.xxxl),
+            padding: const EdgeInsets.all(AppSpacing.xxxl),
             decoration: BoxDecoration(
               color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
               shape: BoxShape.circle,
@@ -130,14 +130,14 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
               color: theme.colorScheme.primary.withValues(alpha: 0.5),
             ),
           ),
-          SizedBox(height: AppSpacing.xxl),
+          const SizedBox(height: AppSpacing.xxl),
           Text(
             'Scan a math expression',
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.w600,
             ),
           ),
-          SizedBox(height: AppSpacing.sm),
+          const SizedBox(height: AppSpacing.sm),
           Text(
             'Take a photo or choose from gallery\nto solve math problems instantly',
             style: theme.textTheme.bodyMedium?.copyWith(
@@ -145,7 +145,7 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
             ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: AppSpacing.xxl),
+          const SizedBox(height: AppSpacing.xxl),
           _buildActionButtons(theme),
         ],
       ],
@@ -160,7 +160,7 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
         return AnimatedContainer(
           duration: AppAnimations.normal,
           width: double.infinity,
-          padding: EdgeInsets.symmetric(vertical: AppSpacing.huge),
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.huge),
           decoration: BoxDecoration(
             color: isHovering
                 ? theme.colorScheme.primaryContainer.withValues(alpha: 0.3)
@@ -171,7 +171,6 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
                   ? theme.colorScheme.primary
                   : theme.colorScheme.outlineVariant,
               width: isHovering ? 2 : 1.5,
-              strokeAlign: BorderSide.strokeAlignInside,
             ),
           ),
           child: Column(
@@ -184,7 +183,7 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
                     ? theme.colorScheme.primary
                     : theme.colorScheme.onSurfaceVariant,
               ),
-              SizedBox(height: AppSpacing.lg),
+              const SizedBox(height: AppSpacing.lg),
               Text(
                 isHovering ? 'Drop your image here' : 'Drag & drop an image',
                 style: theme.textTheme.titleMedium?.copyWith(
@@ -194,14 +193,14 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
                       : theme.colorScheme.onSurface,
                 ),
               ),
-              SizedBox(height: AppSpacing.sm),
+              const SizedBox(height: AppSpacing.sm),
               Text(
                 'or use the buttons below',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
               ),
-              SizedBox(height: AppSpacing.xl),
+              const SizedBox(height: AppSpacing.xl),
               _buildActionButtons(theme),
             ],
           ),
@@ -302,7 +301,7 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
                                 color: theme.colorScheme.onPrimary,
                               ),
                             ),
-                            SizedBox(height: AppSpacing.sm),
+                            const SizedBox(height: AppSpacing.sm),
                             Text(
                               'Scanning...',
                               style: theme.textTheme.labelLarge?.copyWith(
@@ -319,7 +318,7 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
               ),
           ],
         ),
-        SizedBox(height: AppSpacing.lg),
+        const SizedBox(height: AppSpacing.lg),
         if (!_isLoading && _result != null) ...[
           Row(
             children: [
@@ -328,7 +327,7 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
                 size: AppSizes.iconSmall,
                 color: theme.colorScheme.onSurfaceVariant,
               ),
-              SizedBox(width: AppSpacing.xs),
+              const SizedBox(width: AppSpacing.xs),
               Text(
                 'Edit expression if needed',
                 style: theme.textTheme.bodySmall?.copyWith(
@@ -337,22 +336,22 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
               ),
             ],
           ),
-          SizedBox(height: AppSpacing.sm),
+          const SizedBox(height: AppSpacing.sm),
           MathVerseCard(
-            padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
             child: TextField(
               controller: _expressionController,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontFamily: 'monospace',
                 fontWeight: FontWeight.w600,
               ),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: InputBorder.none,
                 hintText: 'Expression',
               ),
             ),
           ),
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
           Row(
             children: [
               Expanded(
@@ -362,7 +361,7 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
                   onPressed: _processImage,
                 ),
               ),
-              SizedBox(width: AppSpacing.md),
+              const SizedBox(width: AppSpacing.md),
               Expanded(
                 flex: 2,
                 child: MathVerseButton(
@@ -373,7 +372,7 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
               ),
             ],
           ),
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
           MathVerseCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -385,14 +384,14 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
                       size: AppSizes.iconMedium,
                       color: theme.colorScheme.primary,
                     ),
-                    SizedBox(width: AppSpacing.sm),
+                    const SizedBox(width: AppSpacing.sm),
                     Text(
                       'Result',
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     IconButton(
                       icon: const Icon(Icons.copy_rounded),
                       onPressed: () {},
@@ -400,10 +399,10 @@ class _OcrPageState extends State<OcrPage> with SingleTickerProviderStateMixin {
                     ),
                   ],
                 ),
-                SizedBox(height: AppSpacing.sm),
+                const SizedBox(height: AppSpacing.sm),
                 Container(
                   width: double.infinity,
-                  padding: EdgeInsets.all(AppSpacing.md),
+                  padding: const EdgeInsets.all(AppSpacing.md),
                   decoration: BoxDecoration(
                     color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                     borderRadius: BorderRadius.circular(AppRadius.md),

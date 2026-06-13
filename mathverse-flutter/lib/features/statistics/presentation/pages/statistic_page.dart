@@ -1,18 +1,18 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 import '../../../../core/extensions/responsive.dart';
-import '../../../../core/theme/app_spacing.dart';
-import '../../../../core/theme/app_radius.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_radius.dart';
 import '../../../../core/theme/app_sizes.dart';
+import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
-import '../../../../core/widgets/mathverse_card.dart';
+import '../../../../core/widgets/loading_widgets.dart';
 import '../../../../core/widgets/mathverse_button.dart';
+import '../../../../core/widgets/mathverse_card.dart';
 import '../../../../core/widgets/mathverse_input.dart';
 import '../../../../core/widgets/state_widgets.dart';
-import '../../../../core/widgets/loading_widgets.dart';
 import '../../data/repositories/statistic_repository_impl.dart';
 import '../../domain/usecases/calculate_statistic.dart';
 import '../bloc/statistic_bloc.dart';
@@ -140,7 +140,7 @@ class _StatisticBodyState extends State<_StatisticBody> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildControls(context),
-              SizedBox(height: AppSpacing.xxl),
+              const SizedBox(height: AppSpacing.xxl),
               _buildResultsSection(context),
               if (_dataController.text.isNotEmpty)
                 _buildChartSection(context),
@@ -160,16 +160,16 @@ class _StatisticBodyState extends State<_StatisticBody> {
           Row(
             children: [
               Icon(Icons.bar_chart_rounded, size: AppSizes.iconMedium, color: theme.colorScheme.primary),
-              SizedBox(width: AppSpacing.sm),
+              const SizedBox(width: AppSpacing.sm),
               Text(
                 'Statistics Calculator',
                 style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
               ),
             ],
           ),
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
           DropdownButtonFormField<String>(
-            value: _selectedOperation,
+            initialValue: _selectedOperation,
             decoration: InputDecoration(
               labelText: 'Operation',
               filled: true,
@@ -186,7 +186,7 @@ class _StatisticBodyState extends State<_StatisticBody> {
                 borderRadius: BorderRadius.circular(AppRadius.input),
                 borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
               ),
-              contentPadding: EdgeInsets.symmetric(
+              contentPadding: const EdgeInsets.symmetric(
                 horizontal: AppSpacing.inputHorizontal,
                 vertical: AppSpacing.inputVertical,
               ),
@@ -197,7 +197,7 @@ class _StatisticBodyState extends State<_StatisticBody> {
                 child: Row(
                   children: [
                     Icon(_operationIcons[op], size: AppSizes.iconMedium),
-                    SizedBox(width: AppSpacing.sm),
+                    const SizedBox(width: AppSpacing.sm),
                     Text(_operationLabels[op] ?? op),
                   ],
                 ),
@@ -207,30 +207,29 @@ class _StatisticBodyState extends State<_StatisticBody> {
               setState(() => _selectedOperation = value!);
             },
           ),
-          SizedBox(height: AppSpacing.md),
+          const SizedBox(height: AppSpacing.md),
           MathVerseInput(
             controller: _dataController,
             labelText: 'Dataset',
             hintText: 'e.g., 1, 2, 3, 4, 5',
             helperText: 'Comma-separated numbers',
-            prefixIcon: Icon(Icons.data_array_rounded, size: AppSizes.iconMedium),
+            prefixIcon: const Icon(Icons.data_array_rounded, size: AppSizes.iconMedium),
           ),
           if (_needsTwoDataSets) ...[
-            SizedBox(height: AppSpacing.md),
+            const SizedBox(height: AppSpacing.md),
             MathVerseInput(
               controller: _data2Controller,
               labelText: 'Second dataset',
               hintText: 'e.g., 2, 4, 6, 8, 10',
               helperText: 'Comma-separated numbers',
-              prefixIcon: Icon(Icons.data_array_rounded, size: AppSizes.iconMedium),
+              prefixIcon: const Icon(Icons.data_array_rounded, size: AppSizes.iconMedium),
             ),
           ],
-          SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.lg),
           MathVerseButton(
             label: 'Calculate ${_operationLabels[_selectedOperation]}',
             onPressed: _calculate,
             isLoading: _isLoading,
-            isExpanded: true,
             icon: Icons.play_arrow_rounded,
           ),
         ],
@@ -240,7 +239,7 @@ class _StatisticBodyState extends State<_StatisticBody> {
 
   Widget _buildResultsSection(BuildContext context) {
     if (_isLoading) {
-      return Column(
+      return const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SectionHeader(title: 'Results'),
@@ -260,7 +259,7 @@ class _StatisticBodyState extends State<_StatisticBody> {
     }
 
     if (_results.isEmpty) {
-      return EmptyState(
+      return const EmptyState(
         icon: Icons.bar_chart_rounded,
         title: 'No Results Yet',
         subtitle: 'Enter your dataset above and tap Calculate',
@@ -270,8 +269,8 @@ class _StatisticBodyState extends State<_StatisticBody> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SectionHeader(title: 'Results'),
-        SizedBox(height: AppSpacing.md),
+        const SectionHeader(title: 'Results'),
+        const SizedBox(height: AppSpacing.md),
         Wrap(
           spacing: AppSpacing.md,
           runSpacing: AppSpacing.md,
@@ -296,20 +295,20 @@ class _StatisticBodyState extends State<_StatisticBody> {
       return SizedBox(
         width: context.isDesktop ? 200 : (context.screenWidth - context.horizontalPadding * 2 - AppSpacing.md) / 2,
         child: MathVerseCard(
-          padding: EdgeInsets.all(AppSpacing.cardPadding),
+          padding: const EdgeInsets.all(AppSpacing.cardPadding),
           color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.2),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Icon(icon, size: AppSizes.iconMedium, color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.4)),
-              SizedBox(height: AppSpacing.sm),
+              const SizedBox(height: AppSpacing.sm),
               Text(
                 label,
                 style: theme.textTheme.titleSmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
                 ),
               ),
-              SizedBox(height: AppSpacing.sm),
+              const SizedBox(height: AppSpacing.sm),
               Text(
                 '—',
                 style: theme.textTheme.headlineSmall?.copyWith(
@@ -326,7 +325,7 @@ class _StatisticBodyState extends State<_StatisticBody> {
     return SizedBox(
       width: context.isDesktop ? 200 : (context.screenWidth - context.horizontalPadding * 2 - AppSpacing.md) / 2,
       child: MathVerseCard(
-        padding: EdgeInsets.all(AppSpacing.cardPadding),
+        padding: const EdgeInsets.all(AppSpacing.cardPadding),
         color: isActive ? theme.colorScheme.primaryContainer.withValues(alpha: 0.3) : null,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -338,7 +337,7 @@ class _StatisticBodyState extends State<_StatisticBody> {
                   size: AppSizes.iconMedium,
                   color: isActive ? theme.colorScheme.primary : theme.colorScheme.onSurface,
                 ),
-                SizedBox(width: AppSpacing.xs),
+                const SizedBox(width: AppSpacing.xs),
                 Expanded(
                   child: Text(
                     label,
@@ -350,9 +349,9 @@ class _StatisticBodyState extends State<_StatisticBody> {
                   ),
                 ),
                 if (isActive) ...[
-                  SizedBox(width: AppSpacing.xs),
+                  const SizedBox(width: AppSpacing.xs),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 2),
+                    padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 2),
                     decoration: BoxDecoration(
                       color: theme.colorScheme.primary,
                       borderRadius: BorderRadius.circular(AppRadius.full),
@@ -368,10 +367,10 @@ class _StatisticBodyState extends State<_StatisticBody> {
                 ],
               ],
             ),
-            SizedBox(height: AppSpacing.sm),
+            const SizedBox(height: AppSpacing.sm),
             Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
+              padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm, horizontal: AppSpacing.sm),
               decoration: BoxDecoration(
                 color: isActive
                     ? theme.colorScheme.primaryContainer.withValues(alpha: 0.2)
@@ -387,7 +386,7 @@ class _StatisticBodyState extends State<_StatisticBody> {
               ),
             ),
             if (showDetails) ...[
-              SizedBox(height: AppSpacing.sm),
+              const SizedBox(height: AppSpacing.sm),
               Text(
                 _currentDetails!,
                 style: theme.textTheme.bodySmall?.copyWith(
@@ -405,49 +404,49 @@ class _StatisticBodyState extends State<_StatisticBody> {
 
   Widget _buildChartSection(BuildContext context) {
     final data = _parseData(_dataController.text);
-    if (data.isEmpty) return SizedBox.shrink();
+    if (data.isEmpty) return const SizedBox.shrink();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: AppSpacing.xxl),
+        const SizedBox(height: AppSpacing.xxl),
         Row(
           children: [
             Icon(Icons.visibility_rounded, size: AppSizes.iconMedium, color: Theme.of(context).colorScheme.primary),
-            SizedBox(width: AppSpacing.sm),
+            const SizedBox(width: AppSpacing.sm),
             Text(
               'Visualization',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
             ),
-            Spacer(),
+            const Spacer(),
             SegmentedButton<bool>(
-              segments: [
+              segments: const [
                 ButtonSegment(
                   value: true,
                   icon: Icon(Icons.bar_chart_rounded, size: AppSizes.iconMedium),
-                  label: const Text('Bar'),
+                  label: Text('Bar'),
                 ),
                 ButtonSegment(
                   value: false,
                   icon: Icon(Icons.show_chart_rounded, size: AppSizes.iconMedium),
-                  label: const Text('Line'),
+                  label: Text('Line'),
                 ),
               ],
               selected: {_showBarChart},
               onSelectionChanged: (value) => setState(() => _showBarChart = value.first),
-              style: ButtonStyle(
+              style: const ButtonStyle(
                 visualDensity: VisualDensity.compact,
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
             ),
           ],
         ),
-        SizedBox(height: AppSpacing.md),
+        const SizedBox(height: AppSpacing.md),
         MathVerseCard(
           child: SizedBox(
             height: AppSizes.graphHeight,
             child: Padding(
-              padding: EdgeInsets.all(AppSpacing.md),
+              padding: const EdgeInsets.all(AppSpacing.md),
               child: _showBarChart ? _buildBarChart(context, data) : _buildLineChart(context, data),
             ),
           ),
@@ -485,7 +484,6 @@ class _StatisticBodyState extends State<_StatisticBody> {
           ),
         ),
         titlesData: FlTitlesData(
-          show: true,
           bottomTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
@@ -524,11 +522,10 @@ class _StatisticBodyState extends State<_StatisticBody> {
               },
             ),
           ),
-          topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          topTitles: const AxisTitles(),
+          rightTitles: const AxisTitles(),
         ),
         gridData: FlGridData(
-          show: true,
           horizontalInterval: (effectiveMaxY / 4).clamp(0.1, double.infinity),
           getDrawingHorizontalLine: (value) {
             return FlLine(
@@ -547,7 +544,7 @@ class _StatisticBodyState extends State<_StatisticBody> {
                 toY: data[index],
                 color: AppColors.chartColors[index % AppColors.chartColors.length],
                 width: 16,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(AppRadius.xs),
                   topRight: Radius.circular(AppRadius.xs),
                 ),
@@ -571,7 +568,6 @@ class _StatisticBodyState extends State<_StatisticBody> {
         maxY: maxY > 0 ? maxY : 1.0,
         clipData: const FlClipData.all(),
         lineTouchData: LineTouchData(
-          enabled: true,
           touchTooltipData: LineTouchTooltipData(
             getTooltipItems: (touchedSpots) {
               return touchedSpots.map((spot) {
@@ -588,7 +584,6 @@ class _StatisticBodyState extends State<_StatisticBody> {
           ),
         ),
         titlesData: FlTitlesData(
-          show: true,
           bottomTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
@@ -628,11 +623,10 @@ class _StatisticBodyState extends State<_StatisticBody> {
               },
             ),
           ),
-          topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          topTitles: const AxisTitles(),
+          rightTitles: const AxisTitles(),
         ),
         gridData: FlGridData(
-          show: true,
           horizontalInterval: (maxY / 4).clamp(0.1, double.infinity),
           getDrawingHorizontalLine: (value) {
             return FlLine(
@@ -663,7 +657,6 @@ class _StatisticBodyState extends State<_StatisticBody> {
             barWidth: 3,
             isStrokeCapRound: true,
             dotData: FlDotData(
-              show: true,
               getDotPainter: (spot, percent, barData, index) {
                 return FlDotCirclePainter(
                   radius: 4,

@@ -9,7 +9,7 @@ import (
 )
 
 var publicPaths = map[string]bool{
-	"/health":              true,
+	"/health":               true,
 	"/api/v1/auth/register": true,
 	"/api/v1/auth/login":    true,
 	"/api/v1/auth/refresh":  true,

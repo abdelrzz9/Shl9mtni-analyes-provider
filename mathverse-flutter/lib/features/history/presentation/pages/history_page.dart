@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_radius.dart';
-import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_sizes.dart';
+import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/widgets/loading_widgets.dart';
 import '../../../../core/widgets/mathverse_card.dart';
 import '../../../../core/widgets/mathverse_input.dart';
@@ -139,7 +139,7 @@ class _HistoryBodyState extends State<_HistoryBody> {
         if (state is HistoryLoading) {
           return const Padding(
             padding: EdgeInsets.all(AppSpacing.md),
-            child: SkeletonList(itemCount: 5),
+            child: SkeletonList(),
           );
         }
         if (state is HistoryError) {
@@ -185,7 +185,7 @@ class _HistoryBodyState extends State<_HistoryBody> {
         return Column(
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.lg, AppSpacing.lg, AppSpacing.sm),
+              padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.lg, AppSpacing.lg, AppSpacing.sm),
               child: Column(
                 children: [
                   MathVerseSearchBar(
@@ -197,13 +197,13 @@ class _HistoryBodyState extends State<_HistoryBody> {
                       setState(() => _searchQuery = '');
                     },
                   ),
-                  SizedBox(height: AppSpacing.sm),
+                  const SizedBox(height: AppSpacing.sm),
                   SizedBox(
                     height: 36,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemCount: _features.length,
-                      separatorBuilder: (context, index) => SizedBox(width: AppSpacing.sm),
+                      separatorBuilder: (context, index) => const SizedBox(width: AppSpacing.sm),
                       itemBuilder: (context, index) {
                         final feature = _features[index];
                         final isSelected = _selectedFeature == feature;
@@ -226,7 +226,7 @@ class _HistoryBodyState extends State<_HistoryBody> {
             ),
             Expanded(
               child: ListView(
-                padding: EdgeInsets.fromLTRB(AppSpacing.lg, 0, AppSpacing.lg, AppSpacing.xxl),
+                padding: const EdgeInsets.fromLTRB(AppSpacing.lg, 0, AppSpacing.lg, AppSpacing.xxl),
                 children: grouped.entries.map((group) {
                   return _buildGroup(context, theme, group.key, group.value);
                 }).toList(),
@@ -243,7 +243,7 @@ class _HistoryBodyState extends State<_HistoryBody> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(vertical: AppSpacing.md),
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
           child: Row(
             children: [
               Text(
@@ -253,9 +253,9 @@ class _HistoryBodyState extends State<_HistoryBody> {
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
               ),
-              SizedBox(width: AppSpacing.sm),
+              const SizedBox(width: AppSpacing.sm),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xxs),
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xxs),
                 decoration: BoxDecoration(
                   color: theme.colorScheme.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(AppRadius.full),
@@ -277,12 +277,12 @@ class _HistoryBodyState extends State<_HistoryBody> {
 
   Widget _buildEntry(BuildContext context, ThemeData theme, HistoryEntry entry) {
     return Padding(
-      padding: EdgeInsets.only(bottom: AppSpacing.sm),
+      padding: const EdgeInsets.only(bottom: AppSpacing.sm),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.only(top: AppSpacing.md),
+            margin: const EdgeInsets.only(top: AppSpacing.md),
             width: 2,
             height: 40,
             decoration: BoxDecoration(
@@ -292,7 +292,7 @@ class _HistoryBodyState extends State<_HistoryBody> {
               borderRadius: BorderRadius.circular(AppRadius.full),
             ),
           ),
-          SizedBox(width: AppSpacing.md),
+          const SizedBox(width: AppSpacing.md),
           Expanded(
             child: MathVerseCard(
               onTap: () {},
@@ -300,7 +300,7 @@ class _HistoryBodyState extends State<_HistoryBody> {
               child: Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.all(AppSpacing.sm),
+                    padding: const EdgeInsets.all(AppSpacing.sm),
                     decoration: BoxDecoration(
                       color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
                       borderRadius: BorderRadius.circular(AppRadius.md),
@@ -311,7 +311,7 @@ class _HistoryBodyState extends State<_HistoryBody> {
                       color: theme.colorScheme.primary,
                     ),
                   ),
-                  SizedBox(width: AppSpacing.md),
+                  const SizedBox(width: AppSpacing.md),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -325,7 +325,7 @@ class _HistoryBodyState extends State<_HistoryBody> {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        SizedBox(height: AppSpacing.xxs),
+                        const SizedBox(height: AppSpacing.xxs),
                         Text(
                           '= ${entry.result}',
                           style: theme.textTheme.bodySmall?.copyWith(
@@ -335,11 +335,11 @@ class _HistoryBodyState extends State<_HistoryBody> {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        SizedBox(height: AppSpacing.xxs),
+                        const SizedBox(height: AppSpacing.xxs),
                         Row(
                           children: [
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 1),
+                              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 1),
                               decoration: BoxDecoration(
                                 color: theme.colorScheme.surfaceContainerHighest,
                                 borderRadius: BorderRadius.circular(AppRadius.full),
@@ -351,7 +351,7 @@ class _HistoryBodyState extends State<_HistoryBody> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: AppSpacing.sm),
+                            const SizedBox(width: AppSpacing.sm),
                             Text(
                               _formatTime(entry.timestamp),
                               style: theme.textTheme.labelSmall?.copyWith(

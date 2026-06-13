@@ -13,10 +13,10 @@ type AppConfig struct {
 	JWTSecret     string
 	MathEngineURL string
 
-	AuthTokenExpiry  time.Duration
+	AuthTokenExpiry    time.Duration
 	RefreshTokenExpiry time.Duration
-	MaxLoginAttempts int
-	LockoutDuration  time.Duration
+	MaxLoginAttempts   int
+	LockoutDuration    time.Duration
 
 	RateLimitRequestsPerMin int
 

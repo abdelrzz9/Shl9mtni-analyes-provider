@@ -17,10 +17,10 @@ func NewLimitHandler(uc *usecase.LimitUsecase) *LimitHandler {
 }
 
 type evaluateLimitReq struct {
-	Function     string  `json:"function" binding:"required"`
-	Variable     string  `json:"variable" binding:"required"`
+	Function      string  `json:"function" binding:"required"`
+	Variable      string  `json:"variable" binding:"required"`
 	ApproachPoint float64 `json:"approachPoint"`
-	Direction    string  `json:"direction"`
+	Direction     string  `json:"direction"`
 }
 
 func (h *LimitHandler) Evaluate(c *gin.Context) {

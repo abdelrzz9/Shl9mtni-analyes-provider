@@ -4,7 +4,6 @@ import (
 	"github.com/abdelrzz9/math_app/mathverse-api/internal/config"
 	"github.com/abdelrzz9/math_app/mathverse-api/internal/domain"
 	"github.com/abdelrzz9/math_app/mathverse-api/internal/middleware"
-	"github.com/abdelrzz9/math_app/mathverse-api/internal/pkg/mathclient"
 	authHandler "github.com/abdelrzz9/math_app/mathverse-api/internal/module/auth/handler"
 	authRepo "github.com/abdelrzz9/math_app/mathverse-api/internal/module/auth/repository"
 	authUsecase "github.com/abdelrzz9/math_app/mathverse-api/internal/module/auth/usecase"
@@ -27,6 +26,7 @@ import (
 	statUsecase "github.com/abdelrzz9/math_app/mathverse-api/internal/module/statistics/usecase"
 	taylorHandler "github.com/abdelrzz9/math_app/mathverse-api/internal/module/taylor/handler"
 	taylorUsecase "github.com/abdelrzz9/math_app/mathverse-api/internal/module/taylor/usecase"
+	"github.com/abdelrzz9/math_app/mathverse-api/internal/pkg/mathclient"
 	"github.com/gin-gonic/gin"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/rs/zerolog"
@@ -52,7 +52,7 @@ func SetupRouter(deps *Dependencies) *gin.Engine {
 
 	r.GET("/health", func(c *gin.Context) {
 
-	r.GET("/metrics", middleware.PrometheusHandler())
+		r.GET("/metrics", middleware.PrometheusHandler())
 		checks := map[string]string{"api": "ok"}
 
 		if deps.DBPool != nil {

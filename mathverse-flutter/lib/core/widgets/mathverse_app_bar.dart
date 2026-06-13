@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../theme/app_colors.dart';
-import '../theme/app_spacing.dart';
-import '../theme/app_sizes.dart';
 import '../theme/app_elevation.dart';
-import '../theme/app_animations.dart';
-import '../theme/app_radius.dart';
 
 class MathVerseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;

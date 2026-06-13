@@ -57,13 +57,13 @@ class _LoginPageState extends State<LoginPage> {
         child: SafeArea(
           child: Center(
             child: SingleChildScrollView(
-              padding: EdgeInsets.all(AppSpacing.screenPadding),
+              padding: const EdgeInsets.all(AppSpacing.screenPadding),
               child: ConstrainedBox(
                 constraints: BoxConstraints(
                   maxWidth: isDesktop ? AppSpacing.formMaxWidth : double.infinity,
                 ),
                 child: MathVerseGlassCard(
-                  padding: EdgeInsets.all(AppSpacing.cardPaddingLarge),
+                  padding: const EdgeInsets.all(AppSpacing.cardPaddingLarge),
                   child: Form(
                     key: _formKey,
                     child: Column(
@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                           size: AppSizes.iconMassive,
                           color: colors.primary,
                         ),
-                        SizedBox(height: AppSpacing.md),
+                        const SizedBox(height: AppSpacing.md),
                         Text(
                           'MathVerse',
                           textAlign: TextAlign.center,
@@ -84,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                             color: colors.primary,
                           ),
                         ),
-                        SizedBox(height: AppSpacing.xs),
+                        const SizedBox(height: AppSpacing.xs),
                         Text(
                           'Sign in to continue',
                           textAlign: TextAlign.center,
@@ -92,13 +92,13 @@ class _LoginPageState extends State<LoginPage> {
                             color: colors.onSurfaceVariant,
                           ),
                         ),
-                        SizedBox(height: AppSpacing.xxxl),
+                        const SizedBox(height: AppSpacing.xxxl),
                         MathVerseInput(
                           controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
                           labelText: 'Email',
-                          prefixIcon: Icon(Icons.email_outlined),
+                          prefixIcon: const Icon(Icons.email_outlined),
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
                               return 'Email is required';
@@ -109,13 +109,13 @@ class _LoginPageState extends State<LoginPage> {
                             return null;
                           },
                         ),
-                        SizedBox(height: AppSpacing.md),
+                        const SizedBox(height: AppSpacing.md),
                         MathVerseInput(
                           controller: _passwordController,
                           obscureText: _obscurePassword,
                           textInputAction: TextInputAction.done,
                           labelText: 'Password',
-                          prefixIcon: Icon(Icons.lock_outlined),
+                          prefixIcon: const Icon(Icons.lock_outlined),
                           suffixIcon: IconButton(
                             icon: Icon(
                               _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
@@ -130,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                             return null;
                           },
                         ),
-                        SizedBox(height: AppSpacing.sm),
+                        const SizedBox(height: AppSpacing.sm),
                         Row(
                           children: [
                             SizedBox(
@@ -160,14 +160,14 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ],
                         ),
-                        SizedBox(height: AppSpacing.sm),
+                        const SizedBox(height: AppSpacing.sm),
                         BlocBuilder<AuthCubit, AuthState>(
                           builder: (context, state) {
                             if (state is AuthError) {
                               return Padding(
-                                padding: EdgeInsets.only(bottom: AppSpacing.md),
+                                padding: const EdgeInsets.only(bottom: AppSpacing.md),
                                 child: Container(
-                                  padding: EdgeInsets.all(AppSpacing.md),
+                                  padding: const EdgeInsets.all(AppSpacing.md),
                                   decoration: BoxDecoration(
                                     color: colors.errorContainer.withValues(alpha: 0.5),
                                     borderRadius: BorderRadius.circular(AppRadius.md),
@@ -176,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                                   child: Row(
                                     children: [
                                       Icon(Icons.error_outline, color: colors.error, size: AppSizes.iconMedium),
-                                      SizedBox(width: AppSpacing.sm),
+                                      const SizedBox(width: AppSpacing.sm),
                                       Expanded(
                                         child: Text(
                                           state.message,
@@ -201,12 +201,12 @@ class _LoginPageState extends State<LoginPage> {
                             );
                           },
                         ),
-                        SizedBox(height: AppSpacing.xxl),
+                        const SizedBox(height: AppSpacing.xxl),
                         Row(
                           children: [
                             Expanded(child: Divider(color: colors.outlineVariant)),
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: AppSpacing.md),
+                              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
                               child: Text(
                                 'or continue with',
                                 style: theme.bodySmall?.copyWith(color: colors.onSurfaceVariant),
@@ -215,30 +215,30 @@ class _LoginPageState extends State<LoginPage> {
                             Expanded(child: Divider(color: colors.outlineVariant)),
                           ],
                         ),
-                        SizedBox(height: AppSpacing.lg),
+                        const SizedBox(height: AppSpacing.lg),
                         Row(
                           children: [
                             Expanded(
                               child: OutlinedButton.icon(
                                 onPressed: () {},
-                                icon: Icon(Icons.g_mobiledata, size: AppSizes.iconLarge),
+                                icon: const Icon(Icons.g_mobiledata, size: AppSizes.iconLarge),
                                 label: const Text('Google'),
                                 style: OutlinedButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(vertical: AppSpacing.md),
+                                  padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(AppRadius.button),
                                   ),
                                 ),
                               ),
                             ),
-                            SizedBox(width: AppSpacing.md),
+                            const SizedBox(width: AppSpacing.md),
                             Expanded(
                               child: OutlinedButton.icon(
                                 onPressed: () {},
-                                icon: Icon(Icons.apple, size: AppSizes.iconLarge),
+                                icon: const Icon(Icons.apple, size: AppSizes.iconLarge),
                                 label: const Text('Apple'),
                                 style: OutlinedButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(vertical: AppSpacing.md),
+                                  padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(AppRadius.button),
                                   ),
@@ -247,7 +247,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ],
                         ),
-                        SizedBox(height: AppSpacing.xxl),
+                        const SizedBox(height: AppSpacing.xxl),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

@@ -321,21 +321,18 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
             _buildRow([
               _CalcButton(
                 label: '7',
-                type: _ButtonType.number,
                 onTap: () => _append('7'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '8',
-                type: _ButtonType.number,
                 onTap: () => _append('8'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '9',
-                type: _ButtonType.number,
                 onTap: () => _append('9'),
                 width: btnWidth,
                 height: btnHeight,
@@ -352,21 +349,18 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
             _buildRow([
               _CalcButton(
                 label: '4',
-                type: _ButtonType.number,
                 onTap: () => _append('4'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '5',
-                type: _ButtonType.number,
                 onTap: () => _append('5'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '6',
-                type: _ButtonType.number,
                 onTap: () => _append('6'),
                 width: btnWidth,
                 height: btnHeight,
@@ -383,21 +377,18 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
             _buildRow([
               _CalcButton(
                 label: '1',
-                type: _ButtonType.number,
                 onTap: () => _append('1'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '2',
-                type: _ButtonType.number,
                 onTap: () => _append('2'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '3',
-                type: _ButtonType.number,
                 onTap: () => _append('3'),
                 width: btnWidth,
                 height: btnHeight,
@@ -414,14 +405,12 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
             _buildRow([
               _CalcButton(
                 label: '0',
-                type: _ButtonType.number,
                 onTap: () => _append('0'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '.',
-                type: _ButtonType.number,
                 onTap: () => _append('.'),
                 width: btnWidth,
                 height: btnHeight,
