@@ -290,30 +290,28 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
             _buildRow([
               _CalcButton(
                 label: 'C',
-                color: context.colorScheme.error,
+                type: _ButtonType.clear,
                 onTap: _clear,
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '(',
-                color: context.colorScheme.secondaryContainer,
-                textColor: context.colorScheme.onSecondaryContainer,
+                type: _ButtonType.function,
                 onTap: () => _append('('),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: ')',
-                color: context.colorScheme.secondaryContainer,
-                textColor: context.colorScheme.onSecondaryContainer,
+                type: _ButtonType.function,
                 onTap: () => _append(')'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '\u00F7',
-                color: context.colorScheme.primary,
+                type: _ButtonType.operator,
                 onTap: () => _append('/'),
                 width: btnWidth,
                 height: btnHeight,
@@ -323,31 +321,28 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
             _buildRow([
               _CalcButton(
                 label: '7',
-                color: context.colorScheme.surfaceContainerHighest,
-                textColor: context.colorScheme.onSurface,
+                type: _ButtonType.number,
                 onTap: () => _append('7'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '8',
-                color: context.colorScheme.surfaceContainerHighest,
-                textColor: context.colorScheme.onSurface,
+                type: _ButtonType.number,
                 onTap: () => _append('8'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '9',
-                color: context.colorScheme.surfaceContainerHighest,
-                textColor: context.colorScheme.onSurface,
+                type: _ButtonType.number,
                 onTap: () => _append('9'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '\u00D7',
-                color: context.colorScheme.primary,
+                type: _ButtonType.operator,
                 onTap: () => _append('*'),
                 width: btnWidth,
                 height: btnHeight,
@@ -357,31 +352,28 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
             _buildRow([
               _CalcButton(
                 label: '4',
-                color: context.colorScheme.surfaceContainerHighest,
-                textColor: context.colorScheme.onSurface,
+                type: _ButtonType.number,
                 onTap: () => _append('4'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '5',
-                color: context.colorScheme.surfaceContainerHighest,
-                textColor: context.colorScheme.onSurface,
+                type: _ButtonType.number,
                 onTap: () => _append('5'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '6',
-                color: context.colorScheme.surfaceContainerHighest,
-                textColor: context.colorScheme.onSurface,
+                type: _ButtonType.number,
                 onTap: () => _append('6'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '-',
-                color: context.colorScheme.primary,
+                type: _ButtonType.operator,
                 onTap: () => _append('-'),
                 width: btnWidth,
                 height: btnHeight,
@@ -391,31 +383,28 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
             _buildRow([
               _CalcButton(
                 label: '1',
-                color: context.colorScheme.surfaceContainerHighest,
-                textColor: context.colorScheme.onSurface,
+                type: _ButtonType.number,
                 onTap: () => _append('1'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '2',
-                color: context.colorScheme.surfaceContainerHighest,
-                textColor: context.colorScheme.onSurface,
+                type: _ButtonType.number,
                 onTap: () => _append('2'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '3',
-                color: context.colorScheme.surfaceContainerHighest,
-                textColor: context.colorScheme.onSurface,
+                type: _ButtonType.number,
                 onTap: () => _append('3'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '+',
-                color: context.colorScheme.primary,
+                type: _ButtonType.operator,
                 onTap: () => _append('+'),
                 width: btnWidth,
                 height: btnHeight,
@@ -425,24 +414,21 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
             _buildRow([
               _CalcButton(
                 label: '0',
-                color: context.colorScheme.surfaceContainerHighest,
-                textColor: context.colorScheme.onSurface,
+                type: _ButtonType.number,
                 onTap: () => _append('0'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '.',
-                color: context.colorScheme.surfaceContainerHighest,
-                textColor: context.colorScheme.onSurface,
+                type: _ButtonType.number,
                 onTap: () => _append('.'),
                 width: btnWidth,
                 height: btnHeight,
               ),
               _CalcButton(
                 label: '\u232B',
-                color: context.colorScheme.surfaceContainerHighest,
-                textColor: context.colorScheme.onSurfaceVariant,
+                type: _ButtonType.delete,
                 onTap: _backspace,
                 onLongPress: _clear,
                 width: btnWidth,
@@ -450,7 +436,7 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
               ),
               _CalcButton(
                 label: '=',
-                color: context.colorScheme.primary,
+                type: _ButtonType.equals,
                 onTap: _calculate,
                 width: btnWidth,
                 height: btnHeight,
@@ -460,8 +446,7 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
             _buildRow([
               _CalcButton(
                 label: 'sin',
-                color: context.colorScheme.secondaryContainer,
-                textColor: context.colorScheme.onSecondaryContainer,
+                type: _ButtonType.function,
                 onTap: () => _append('sin('),
                 fontSize: 13,
                 width: btnWidth,
@@ -469,8 +454,7 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
               ),
               _CalcButton(
                 label: 'cos',
-                color: context.colorScheme.secondaryContainer,
-                textColor: context.colorScheme.onSecondaryContainer,
+                type: _ButtonType.function,
                 onTap: () => _append('cos('),
                 fontSize: 13,
                 width: btnWidth,
@@ -478,8 +462,7 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
               ),
               _CalcButton(
                 label: 'tan',
-                color: context.colorScheme.secondaryContainer,
-                textColor: context.colorScheme.onSecondaryContainer,
+                type: _ButtonType.function,
                 onTap: () => _append('tan('),
                 fontSize: 13,
                 width: btnWidth,
@@ -487,7 +470,7 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
               ),
               _CalcButton(
                 label: '^',
-                color: context.colorScheme.primary,
+                type: _ButtonType.operator,
                 onTap: () => _append('^'),
                 width: btnWidth,
                 height: btnHeight,
@@ -497,8 +480,7 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
             _buildRow([
               _CalcButton(
                 label: 'log',
-                color: context.colorScheme.secondaryContainer,
-                textColor: context.colorScheme.onSecondaryContainer,
+                type: _ButtonType.function,
                 onTap: () => _append('log('),
                 fontSize: 13,
                 width: btnWidth,
@@ -506,8 +488,7 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
               ),
               _CalcButton(
                 label: 'ln',
-                color: context.colorScheme.secondaryContainer,
-                textColor: context.colorScheme.onSecondaryContainer,
+                type: _ButtonType.function,
                 onTap: () => _append('ln('),
                 fontSize: 13,
                 width: btnWidth,
@@ -515,8 +496,7 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
               ),
               _CalcButton(
                 label: '\u221A',
-                color: context.colorScheme.secondaryContainer,
-                textColor: context.colorScheme.onSecondaryContainer,
+                type: _ButtonType.function,
                 onTap: () => _append('sqrt('),
                 fontSize: 18,
                 width: btnWidth,
@@ -524,8 +504,7 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
               ),
               _CalcButton(
                 label: '\u03C0',
-                color: context.colorScheme.secondaryContainer,
-                textColor: context.colorScheme.onSecondaryContainer,
+                type: _ButtonType.function,
                 onTap: () => _append('\u03C0'),
                 fontSize: 18,
                 width: btnWidth,
@@ -552,12 +531,13 @@ class _CalculatorBodyState extends State<_CalculatorBody> {
   }
 }
 
+enum _ButtonType { number, operator, function, clear, delete, equals }
+
 class _CalcButton extends StatefulWidget {
   final String label;
   final VoidCallback onTap;
   final VoidCallback? onLongPress;
-  final Color? color;
-  final Color? textColor;
+  final _ButtonType type;
   final double width;
   final double height;
   final double fontSize;
@@ -566,8 +546,7 @@ class _CalcButton extends StatefulWidget {
     required this.label,
     required this.onTap,
     this.onLongPress,
-    this.color,
-    this.textColor,
+    this.type = _ButtonType.number,
     required this.width,
     required this.height,
     this.fontSize = 20,
@@ -626,8 +605,49 @@ class _CalcButtonState extends State<_CalcButton>
 
   @override
   Widget build(BuildContext context) {
-    final bg = widget.color ?? context.colorScheme.surfaceContainerHighest;
-    final fg = widget.textColor ?? context.colorScheme.onPrimary;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    Color bg;
+    Color fg;
+    double elevation;
+
+    switch (widget.type) {
+      case _ButtonType.number:
+        bg = isDark
+            ? const Color(0xFF2C2C30)
+            : const Color(0xFFF2F2F6);
+        fg = theme.colorScheme.onSurface;
+        elevation = 0;
+      case _ButtonType.operator:
+        bg = isDark
+            ? const Color(0xFF3A3A50)
+            : const Color(0xFFEEF0FF);
+        fg = theme.colorScheme.primary;
+        elevation = 0;
+      case _ButtonType.function:
+        bg = isDark
+            ? const Color(0xFF2C2C3E)
+            : const Color(0xFFF0F4FF);
+        fg = theme.colorScheme.tertiary;
+        elevation = 0;
+      case _ButtonType.clear:
+        bg = isDark
+            ? const Color(0xFF3D2020)
+            : const Color(0xFFFFF0F0);
+        fg = theme.colorScheme.error;
+        elevation = 0;
+      case _ButtonType.delete:
+        bg = isDark
+            ? const Color(0xFF2C2C30)
+            : const Color(0xFFF2F2F6);
+        fg = theme.colorScheme.onSurfaceVariant;
+        elevation = 0;
+      case _ButtonType.equals:
+        bg = theme.colorScheme.primary;
+        fg = theme.colorScheme.onPrimary;
+        elevation = 4;
+    }
 
     return AnimatedBuilder(
       animation: _scaleAnimation,
@@ -648,15 +668,29 @@ class _CalcButtonState extends State<_CalcButton>
           height: widget.height,
           decoration: BoxDecoration(
             color: bg,
-            borderRadius: BorderRadius.circular(AppRadius.lg),
+            borderRadius: BorderRadius.circular(AppRadius.xl),
+            boxShadow: elevation > 0
+                ? [
+                    BoxShadow(
+                      color: widget.type == _ButtonType.equals
+                          ? theme.colorScheme.primary.withValues(alpha: 0.3)
+                          : Colors.black.withValues(alpha: 0.1),
+                      blurRadius: elevation * 3,
+                      offset: Offset(0, elevation),
+                    ),
+                  ]
+                : null,
           ),
           alignment: Alignment.center,
           child: Text(
             widget.label,
             style: TextStyle(
               fontSize: widget.fontSize,
-              fontWeight: FontWeight.w500,
+              fontWeight: widget.type == _ButtonType.equals
+                  ? FontWeight.w700
+                  : FontWeight.w500,
               color: fg,
+              letterSpacing: widget.type == _ButtonType.equals ? 0.5 : 0,
             ),
           ),
         ),

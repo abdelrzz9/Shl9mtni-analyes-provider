@@ -1,30 +1,33 @@
 import 'dart:async';
 
-import 'package:mathverse_flutter/core/network/api_client.dart';
-import 'package:mathverse_flutter/di/injection_container.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 import '../../domain/entities/calculation_result.dart';
 import '../../domain/repositories/calculator_repository.dart';
 
 class CalculatorRepositoryImpl implements CalculatorRepository {
-  final ApiClient _apiClient;
   final StreamController<String> _expressionController = StreamController<String>.broadcast();
-
-  CalculatorRepositoryImpl([ApiClient? apiClient]) : _apiClient = apiClient ?? sl();
 
   @override
   Future<CalculationResult> evaluate(String expression) async {
     try {
-      final response = await _apiClient.post(
-        '/api/v1/calculator/evaluate',
-        data: {'expression': expression},
-      );
-      final data = response.data as Map<String, dynamic>;
+      final cleaned = expression
+          .replaceAll('\u00D7', '*')
+          .replaceAll('\u00F7', '/')
+          .replaceAll('\u03C0', 'pi')
+          .replaceAll('^', '^');
+
+      final parser = Parser();
+      final exp = parser.parse(cleaned);
+      final cm = ContextModel();
+      final result = exp.evaluate(EvaluationType.REAL, cm);
+
       _expressionController.add(expression);
+
       return CalculationResult(
         expression: expression,
-        result: (data['result'] as num).toDouble(),
-        latexOutput: data['latex_output'] as String?,
+        result: (result as double),
+        latexOutput: null,
         timestamp: DateTime.now(),
       );
     } catch (e) {
